@@ -237,11 +237,22 @@
     else { if (!groups.length) groups.push({ heading: '', items: [] }); groups.at(-1).items.push(line); }
     return groups;
   }, []);
-  const partyList = groups => groups.map(group => `${group.heading ? `<h4>${esc(group.heading)}</h4>` : ''}<ul>${group.items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>`).join('');
+  // A small icon per kind of heading, so the package cards read at a glance rather than as a wall of text.
+  const PARTY_ICONS = {
+    food: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',
+    beverages: '<path d="M7 8h10l-1 12.2a2 2 0 0 1-2 1.8h-4a2 2 0 0 1-2-1.8L7 8ZM6 8l1-4h10l1 4"/>',
+    alcohol: '<path d="M10 2h4v4.5l2 3V20a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V9.5l2-3V2Z"/><path d="M9 13h6"/>',
+    cocktails: '<path d="M4 5h16l-8 9zM12 14v7M8 21h8M15 2l2 3"/>',
+    'also included': '<rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M3 8h18M12 8v13"/><path d="M12 8C11 5 7 3 7 6c0 2 2.2 2 5 2ZM12 8c1-3 5-5 5-2 0 2-2.2 2-5 2Z"/>',
+  };
+  const partyIcon = heading => `<svg viewBox="0 0 24 24" ${LINE}>${PARTY_ICONS[heading.toLowerCase()] || '<path d="M12 3v18M3 12h18"/>'}</svg>`;
+  const partyList = groups => groups.map(group => `${group.heading ? `<h4>${partyIcon(group.heading)}${esc(group.heading)}</h4>` : ''}<ul>${group.items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>`).join('');
   function drawParty(site) {
     const party = site.party || [];
     const packages = party.filter(entry => entry.kind === 'package'), courses = party.filter(entry => entry.kind === 'course'), terms = party.find(entry => entry.kind === 'terms');
-    $$('[data-live="party-packages"]').forEach(node => { node.innerHTML = packages.map((entry, index) => `<article class="party-package tier-${index % 4}"><header><span>${esc(entry.name)} package</span><strong>${entry.price === null ? '' : rupees(entry.price)}</strong><small>per guest, all inclusive</small></header>${partyList(partyGroups(entry.details))}<a class="button" href="#enquiry">Plan with ${esc(entry.name)}</a></article>`).join(''); });
+    // Tiers are told apart by how filled-in this little glass trail is, and the top tier's button stands
+    // out solid rather than outlined — a ladder of emphasis without reaching for colour.
+    $$('[data-live="party-packages"]').forEach(node => { node.innerHTML = packages.map((entry, index) => `<article class="party-package tier-${index % 4}"><p class="party-tier" aria-hidden="true">${packages.map((p, i) => `<svg viewBox="0 0 24 24" class="${i <= index ? 'filled' : ''}" ${LINE}><path d="M4 5h16l-8 9zM12 14v6M9 20h6"/></svg>`).join('')}</p><header><span>${esc(entry.name)} package</span><strong>${entry.price === null ? '' : rupees(entry.price)}</strong><small>per guest, all inclusive</small></header>${partyList(partyGroups(entry.details))}<a class="button${index === packages.length - 1 ? ' cream' : ' outline'}" href="#enquiry">Plan with ${esc(entry.name)} <span>↗</span></a></article>`).join(''); });
     $$('[data-live="party-courses"]').forEach(node => { node.innerHTML = courses.length ? `<h3>Choose your dishes</h3><div>${courses.map(entry => `<section><h4>${esc(entry.name)}</h4><ul>${partyGroups(entry.details).flatMap(group => group.items).map(item => `<li>${esc(item)}</li>`).join('')}</ul></section>`).join('')}</div>` : ''; });
     $$('[data-live="party-terms"]').forEach(node => { node.hidden = !terms; if (terms) $('ul', node).innerHTML = partyGroups(terms.details).flatMap(group => group.items).map(item => `<li>${esc(item)}</li>`).join(''); });
     $$('.party-menu').forEach(node => { node.hidden = !packages.length && !courses.length; });

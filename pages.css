@@ -157,16 +157,25 @@ h1,h2,h3{font-family:Manrope,'DM Sans',Arial,sans-serif;font-weight:500;letter-s
 .party-menu{padding-top:90px;padding-bottom:90px}
 .party-head{display:grid;grid-template-columns:1fr 1fr;gap:20px 60px;align-items:end;margin-bottom:44px}.party-head .eyebrow{grid-column:1/-1;margin:0}.party-head h2{margin:0;font-size:clamp(44px,6vw,84px);line-height:.92}.party-head h2 em{color:var(--accent);font-style:normal}.party-head p:last-child{color:var(--muted);font-size:16px;line-height:1.6;max-width:430px;margin:0}
 .party-packages{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.party-package{--tier:#cdcdcd;display:flex;flex-direction:column;border:1px solid var(--line);border-top:4px solid var(--tier);border-radius:14px;background:#1d1d1de6;padding:24px 22px 22px}
-.party-package.tier-1{--tier:#bababa}.party-package.tier-2{--tier:#b1b1b1}.party-package.tier-3{--tier:var(--accent)}
+/* Tiers are told apart by brightness, not colour: each step up is a shade lighter and a touch bolder. */
+.party-package{--tier:#9a9a9a;display:flex;flex-direction:column;border:1px solid var(--line);border-top:4px solid var(--tier);border-radius:14px;background:#1a1a1ae6;padding:22px 22px 24px;transition:transform .25s,box-shadow .25s}
+.party-package.tier-1{--tier:#bfbfbf;background:#1e1e1ee6}
+.party-package.tier-2{--tier:#e2e2e2;background:#222222e6}
+.party-package.tier-3{--tier:var(--cream);background:#262626e6;box-shadow:0 18px 40px #0007}
+.party-package:hover{transform:translateY(-4px);box-shadow:0 20px 44px #0008}
+.party-tier{display:flex;gap:5px;margin:0 0 14px}
+.party-tier svg{width:15px;height:15px;color:#4a4a4a}
+.party-tier svg.filled{color:var(--tier)}
 .party-package header{display:flex;flex-direction:column;gap:2px;padding-bottom:16px;margin-bottom:6px;border-bottom:1px dashed var(--line)}
 .party-package header span{color:var(--tier);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 .party-package header strong{font-family:'Bebas Neue','Anton',sans-serif;font-size:46px;line-height:1;font-weight:400}
 .party-package header small{color:var(--muted);font-size:12px}
-.party-package h4{margin:16px 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tier)}
+.party-package h4{display:flex;align-items:center;gap:8px;margin:16px 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tier)}
+.party-package h4 svg{width:15px;height:15px;flex-shrink:0}
 .party-package ul,.party-courses ul,.party-terms ul{margin:0;padding:0;list-style:none}
 .party-package li{position:relative;padding:3px 0 3px 16px;color:#dbdbdb;font-size:13.5px;line-height:1.45}.party-package li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--tier)}
-.party-package .button{margin-top:auto;align-self:stretch;text-align:center;margin-top:22px}
+.party-package .button{margin-top:auto;align-self:stretch;justify-content:center;gap:10px;text-align:center;margin-top:22px}
+.party-package .button.cream:hover{background:var(--cream);opacity:.88;transform:translateY(-3px)}
 .party-package ul:last-of-type{margin-bottom:4px}
 .party-courses{margin-top:60px}.party-courses>h3{font-size:30px;margin:0 0 20px}
 .party-courses>div{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
