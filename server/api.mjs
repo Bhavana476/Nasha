@@ -918,7 +918,13 @@ const SECTIONS = {
   info: ['settings', body => ({ name: text(body.name, 80, 'Restaurant name', true), logo: imageOf(body.logo), gst: text(body.gst, 20, 'GST number').toUpperCase(), address: text(body.address, 300, 'Address', true), phone: phoneOf(body.phone), phoneDisplay: text(body.phoneDisplay, 30, 'Phone as shown') || phoneOf(body.phone), email: emailOf(body.email), whatsapp: phoneOf(body.whatsapp, false), mapsUrl: urlOf(body.mapsUrl, 'Google Maps link'), siteUrl: urlOf(body.siteUrl, 'Website address').replace(/\/+$/, '') })],
   branches: ['settings', (body, current) => current.map((branch, index) => {
     const entry = (Array.isArray(body.branches) ? body.branches : [])[index] || branch;
-    return { id: branch.id, name: text(entry.name, 40, 'Branch name', true), address: text(entry.address, 300, 'Branch address', true), phone: phoneOf(entry.phone), phoneDisplay: text(entry.phoneDisplay, 30, 'Phone as shown') || phoneOf(entry.phone), whatsapp: phoneOf(entry.whatsapp, false), mapsUrl: urlOf(entry.mapsUrl, 'Google Maps link'), instagram: urlOf(entry.instagram, 'Instagram link'), heroImage: imageOf(entry.heroImage) };
+    // Zomato listings, one per line as "Name | link". A branch can have more than one (e.g. a second
+    // listing under a different name at the same address).
+    const zomatoLinks = (Array.isArray(entry.zomatoLinksText) ? entry.zomatoLinksText : String(entry.zomatoLinksText ?? '').split('\n'))
+      .map(line => line.trim()).filter(Boolean).slice(0, 5)
+      .map(line => { const [name, url] = line.split('|').map(part => part.trim()); return { name: text(name, 60, 'Zomato listing name'), url: urlOf(url, 'Zomato link') }; })
+      .filter(entry => entry.url);
+    return { id: branch.id, name: text(entry.name, 40, 'Branch name', true), address: text(entry.address, 300, 'Branch address', true), phone: phoneOf(entry.phone), phoneDisplay: text(entry.phoneDisplay, 30, 'Phone as shown') || phoneOf(entry.phone), whatsapp: phoneOf(entry.whatsapp, false), mapsUrl: urlOf(entry.mapsUrl, 'Google Maps link'), instagram: urlOf(entry.instagram, 'Instagram link'), heroImage: imageOf(entry.heroImage), zomatoLinks };
   })],
   hours: ['settings', body => {
     if (!Array.isArray(body.hours) || body.hours.length !== 7) bad('Opening hours are incomplete.');

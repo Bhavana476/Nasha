@@ -410,6 +410,11 @@
     const whatsapp = branch.whatsapp || info.whatsapp, maps = branch.mapsUrl || info.mapsUrl, instagram = branch.instagram || site.social.instagram;
     // The Instagram icon at the top of the page follows whichever branch is chosen.
     $$('[data-live="instagram-header"]').forEach(link => { link.hidden = !instagram; if (instagram) link.href = instagram; });
+    // A branch's own Zomato listing(s) replace the site's general one; some branches have more than one.
+    const zomatoLinks = branch.zomatoLinks?.length ? branch.zomatoLinks : (site.social.zomato ? [{ name: '', url: site.social.zomato }] : []);
+    const zomatoLabel = (base, entry) => zomatoLinks.length > 1 && entry.name ? `${base} (${entry.name})` : base;
+    $$('[data-live="order-links"]').forEach(node => { node.innerHTML = (site.social.swiggy ? [external(site.social.swiggy, 'Order on Swiggy')] : []).concat(zomatoLinks.map(entry => external(entry.url, zomatoLabel('Find us on Zomato', entry)))).join(''); });
+    $$('[data-live="review-links"]').forEach(node => { node.innerHTML = (site.social.googleReviews ? [external(site.social.googleReviews, 'Reviews on Google', 'inline-link')] : []).concat(zomatoLinks.map(entry => external(entry.url, zomatoLabel('Reviews on Zomato', entry), 'inline-link'))).join(''); });
     // A branch with its own banner photo shows it instead of the site's main one.
     const heroImage = branch.heroImage || content.hero.image;
     if (heroImage) $$('[data-live="hero-image"]').forEach(image => { image.src = heroImage; image.alt = ''; });
@@ -453,9 +458,7 @@
     if (hoursTable) hoursTable.innerHTML = `<table class="hours-table"><tbody>${[1, 2, 3, 4, 5, 6, 0].map(day => { const entry = site.hours.find(item => item.day === day); return `<tr${day === today ? ' class="today"' : ''}><th scope="row">${DAYS[day]}</th><td>${entry.closed ? 'Closed' : `${niceTime(entry.open)} – ${niceTime(entry.close)}`}</td></tr>`; }).join('')}</tbody></table>${site.holidays.length ? `<p class="holiday-note">${site.holidays.slice(0, 4).map(holiday => `Closed ${esc(niceDate(holiday.date))}${holiday.note ? ` (${esc(holiday.note)})` : ''}`).join('<br>')}</p>` : ''}`;
     const socialLinks = [['instagram', 'Instagram'], ['facebook', 'Facebook'], ['youtube', 'YouTube'], ['x', 'X'], ['zomato', 'Zomato'], ['swiggy', 'Swiggy']].filter(([key]) => social[key]);
     $$('[data-live="social"]').forEach(node => { node.innerHTML = socialLinks.map(([key, label]) => `<a href="${esc(social[key])}" target="_blank" rel="noopener noreferrer">${label}</a>`).join(''); });
-    $$('[data-live="order-links"]').forEach(node => { node.innerHTML = [['swiggy', 'Order on Swiggy'], ['zomato', 'Find us on Zomato']].filter(([key]) => social[key]).map(([key, label]) => external(social[key], label)).join(''); });
     $$('[data-live="order-link"]').forEach(link => { link.hidden = !site.ordering.enabled; });
-    $$('[data-live="review-links"]').forEach(node => { node.innerHTML = [['googleReviews', 'Reviews on Google'], ['zomato', 'Reviews on Zomato']].filter(([key]) => social[key]).map(([key, label]) => external(social[key], label, 'inline-link')).join(''); });
 
     const hero = content.hero;
     if (hero.title) $$('[data-live="hero-title"]').forEach(node => { const rows = hero.title.split('\n').map(esc); node.innerHTML = rows.map((row, index) => index === rows.length - 1 && rows.length > 1 ? `<em>${row}</em>` : row).join('<br>'); });
