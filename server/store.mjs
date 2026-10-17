@@ -292,6 +292,32 @@ if (db.meta.version < 15) {
   db.meta.version = 15;
 }
 
+// Version 16 gave every menu category a branch (empty means both; otherwise 'btm' or 'attibele'). Every
+// category already on the menu is marked as BTM's own, since it came from BTM's own printed menus, and
+// the Attibele Garden food menu (10-12-25) is added as Attibele's own. A dish with more than one size
+// (e.g. "Veg ₹169 · Chicken ₹189") shows its lowest price on the card and every size in its description.
+if (db.meta.version < 16) {
+  for (const category of db.categories) category.branch ??= 'btm';
+  const attibele = JSON.parse(readFileSync(path.join(root, 'server', 'attibele-menu.json'), 'utf8'));
+  const drinkCategories = new Set(['att-beverages', 'att-hot-beverages']);
+  const rupee = amount => '₹' + amount.toLocaleString('en-IN');
+  let categoryOrder = Math.max(-1, ...db.categories.map(category => category.order)) + 1;
+  let itemOrder = Math.max(-1, ...db.items.map(item => item.order)) + 1;
+  for (const category of attibele.categories) {
+    if (db.categories.some(entry => entry.id === category.id)) continue;
+    db.categories.push({ id: category.id, name: category.name, kind: drinkCategories.has(category.id) ? 'drink' : 'food', note: '', photo: '', branch: 'attibele', order: categoryOrder++ });
+    category.items.forEach(([name, sizes, diet, description], position) => {
+      const entries = Object.entries(sizes);
+      const sizeText = entries.length > 1 ? entries.map(([size, price]) => `${size} ${price === null ? 'Ask' : rupee(price)}`).join(' · ') : '';
+      db.items.push({
+        id: `${category.id}-${position + 1}`, categoryId: category.id, name, description: [sizeText, description].filter(Boolean).join('. '),
+        price: entries.length > 1 ? Math.min(...entries.map(([, price]) => price)) : entries[0][1], photo: '', diet, badges: [], available: true, order: itemOrder++,
+      });
+    });
+  }
+  db.meta.version = 16;
+}
+
 // Items that shared a photo with another item get their own (server/unique-photos.json). This runs on
 // every start, but only replaces a stock photo from assets/, never one the owner uploaded.
 {

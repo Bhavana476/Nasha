@@ -277,10 +277,22 @@ test('online ordering: basket, coupon and order placed', async ({ page, request 
   const refused = await request.post('/api/public/orders', { data: { name: 'X', phone: '9000000005', type: 'pickup', payment: 'cod', items: [{ id: 'b-red-wine-1', qty: 1 }] } });
   expect((await refused.json()).error).toContain('Alcoholic drinks');
 
-  // The admin panel no longer shows online orders; the order is still kept on the server.
   const placed = (await call('GET', `orders?date=${future(0)}`)).orders.find(order => order.name === 'Order Olivia');
   expect(placed.lines[0]).toMatchObject({ name: 'Veg patty burger', qty: 2 });
   expect(placed.total).toBe(810);
+
+  // The order, with its full details, is also visible and actionable in the admin panel.
+  await page.goto('/admin/#/orders');
+  await page.locator('input[type="date"]').fill(future(0));
+  const row = page.locator('tr', { hasText: 'Order Olivia' });
+  await expect(row).toContainText('9000000004');
+  await expect(row).toContainText('2× Veg patty burger');
+  await expect(row).toContainText('₹810');
+  await expect(row).toContainText('Coupon NASHA10');
+  await row.getByLabel(/Status for order/).selectOption('preparing');
+  await expect(page.locator('#toast')).toContainText('preparing');
+  expect((await call('GET', `orders?date=${future(0)}`)).orders.find(order => order.name === 'Order Olivia').status).toBe('preparing');
+
   await call('PUT', 'settings/ordering', { enabled: false, delivery: false, deliveryFee: 0, minOrder: 0 });
 });
 
@@ -473,6 +485,24 @@ test('branch switch changes contact details and records the branch on a booking'
   expect((await call('GET', 'reservations?branch=btm')).some(entry => entry.name === 'Branch Bina')).toBe(false);
   await page.goto('/admin/#/reservations');
   await expect(page.locator('tr', { hasText: 'Branch Bina' })).toContainText('Attibele');
+});
+
+test('each branch shows its own food & drinks menu', async ({ page }) => {
+  const group = name => page.locator('.dish-group').filter({ has: page.locator('h3', { hasText: new RegExp(`^${name}$`) }) });
+  await page.goto('/menu.html');
+  await live(page);
+  await expect(group('Badass burgers')).toHaveCount(1);
+  await expect(group('Andhra style')).toHaveCount(0);
+  await page.locator('.branch-toggle').getByRole('button', { name: 'Attibele' }).click();
+  await expect(group('Andhra style')).toHaveCount(1);
+  await expect(group('Badass burgers')).toHaveCount(0);
+  const andhra = group('Andhra style');
+  await andhra.locator('summary').click();
+  await expect(andhra).toContainText('Chicken Ghee Roast / Pepper Fry / Roast');
+  await expect(andhra).toContainText('₹349');
+  await page.locator('.branch-toggle').getByRole('button', { name: 'BTM 2nd Stage' }).click();
+  await expect(group('Badass burgers')).toHaveCount(1);
+  await expect(group('Andhra style')).toHaveCount(0);
 });
 
 test('the happy hours menu is kept in the admin menu and drawn from it on the website', async ({ page, request }) => {

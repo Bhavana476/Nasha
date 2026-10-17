@@ -244,7 +244,7 @@ async function enter(user) {
 
 // ---- Shell and navigation ---------------------------------------------------------------------------
 const NAV = [
-  ['dashboard', 'Dashboard', 'dashboard'], ['reservations', 'Reservations', 'reservations.read'], ['menu', 'Menu', 'menu'], ['events', 'Events & nightlife', 'events'], ['party', 'Party menu', 'events'],['offers', 'Offers & vouchers', 'offers'],
+  ['dashboard', 'Dashboard', 'dashboard'], ['reservations', 'Reservations', 'reservations.read'], ['orders', 'Orders', 'orders'], ['menu', 'Menu', 'menu'], ['events', 'Events & nightlife', 'events'], ['party', 'Party menu', 'events'],['offers', 'Offers & vouchers', 'offers'],
   ['customers', 'Customers', 'customers'], ['reviews', 'Reviews', 'reviews'], ['memories', 'Guest memories', 'memories'],
   ['content', 'Website content', 'content'], ['reports', 'Reports', 'reports'], ['settings', 'Settings', 'settings'], ['team', 'Team & activity', 'users'], ['account', 'My account', null],
 ];
@@ -286,11 +286,13 @@ VIEWS.dashboard = async main => {
   const tile = (value, label, detail, href) => h(href ? 'a' : 'div', { class: 'tile', href, style: href ? 'text-decoration:none;color:inherit' : null }, h('b', null, String(value)), h('span', null, label), detail && h('small', null, detail));
   setCount('reviews', data.pendingReviews);
   setCount('memories', data.pendingMemories);
-  render(main, 
+  setCount('orders', data.openOrders);
+  render(main,
     header('Dashboard', can('reservations.write') && button('Add booking', () => bookingDialog(null, route), 'primary'), can('events') && button('Add event', () => eventDialog(null, route)), can('menu') && h('a', { class: 'btn', href: '#/menu' }, 'Edit menu')),
     h('div', { class: 'tiles' },
       tile(data.reservations.count, 'Reservations today', `${data.reservations.guests} guests`, '#/reservations'),
       tile(data.reservations.pending, 'Requests awaiting confirmation', null, '#/reservations'),
+      can('orders') && tile(data.openOrders, 'Orders to prepare', null, '#/orders'),
       can('reviews') && tile(data.pendingReviews, 'Reviews to check', null, '#/reviews'),
       can('memories') && tile(data.pendingMemories, 'Guest photos to check', null, '#/memories')),
     h('h2', null, 'Website visitors'),
@@ -380,6 +382,31 @@ VIEWS.reservations = async main => {
     ], rows, 'No bookings match these filters.'));
 };
 
+// ---- Orders ---------------------------------------------------------------------------------------------------
+const ORDER_STATUSES = ['received', 'preparing', 'ready', 'delivered', 'cancelled'];
+const orderView = { date: istToday() };
+VIEWS.orders = async main => {
+  const data = await get(`orders${orderView.date ? `?date=${orderView.date}` : ''}`);
+  setCount('orders', data.orders.filter(order => ['received', 'preparing', 'ready'].includes(order.status)).length);
+  const reload = () => route();
+  const set = (key, value) => { orderView[key] = value; reload(); };
+  render(main, header('Orders', !state.settings.ordering.enabled && h('span', { class: 'badge warn' }, 'Online ordering is off'), h('a', { class: 'btn', href: '#/settings' }, 'Ordering settings')),
+    h('div', { class: 'toolbar' },
+      h('label', null, 'Date', h('input', { type: 'date', value: orderView.date, onchange: event => set('date', event.target.value) })),
+      button('Today', () => set('date', istToday())), button('All orders', () => set('date', ''))),
+    h('p', { class: 'small muted' }, `${data.summary.count} order${data.summary.count === 1 ? '' : 's'} · ${rupees(data.summary.revenue)} total · ${rupees(data.summary.paid)} paid online · ${rupees(data.summary.cod)} pay at restaurant · ${rupees(data.summary.unpaid)} awaiting online payment`),
+    table([
+      { label: 'Order', cell: row => [h('b', null, `#${row.number}`), h('div', { class: 'small muted' }, fmtStamp(row.createdAt))] },
+      { label: 'Branch', cell: row => branchName(row.branch) },
+      { label: 'Guest', cell: row => [h('b', null, row.name), h('div', { class: 'small muted' }, [h('a', { href: `tel:${row.phone}` }, row.phone), ' ', h('a', { class: 'small', href: waLink(row.phone, `Hi ${row.name}, this is ${state.settings.info.name} about your order #${row.number}.`), target: '_blank', rel: 'noopener' }, 'WhatsApp')])] },
+      { label: 'Where', cell: row => [title(row.type), row.table && h('div', { class: 'small muted' }, `Table ${row.table}`), row.address && h('div', { class: 'small muted', style: 'max-width:180px' }, row.address)] },
+      { label: 'Items', wrap: true, cell: row => h('div', null, row.lines.map(line => h('div', { class: 'small' }, `${line.qty}× ${line.name} — ${rupees(line.total)}`)), row.notes && h('div', { class: 'small muted' }, `Note: ${row.notes}`)) },
+      { label: 'Total', num: true, cell: row => [h('b', null, rupees(row.total)), row.coupon && h('div', { class: 'small muted' }, `Coupon ${row.coupon}`)] },
+      { label: 'Payment', cell: row => [title(row.payment), h('div', null, badge(row.paymentStatus))] },
+      { label: 'Status', cell: row => pick(ORDER_STATUSES, row.status, async status => { await attempt(() => api('PUT', `orders/${row.id}`, { status }), `Order #${row.number} marked ${status}.`); reload(); }, `Status for order #${row.number}`) },
+    ], data.orders, 'No orders for this date.'));
+};
+
 // ---- Menu ---------------------------------------------------------------------------------------------------
 const BADGES = ['Chef’s Special', 'Bestseller', 'New'];
 const DIETS = [['veg', 'Veg'], ['nonveg', 'Non-veg'], ['alcoholic', 'Alcoholic'], ['ask', 'No tag']];
@@ -390,7 +417,7 @@ VIEWS.menu = async main => {
   categories.sort(byOrder);
   items.sort(byOrder);
   const reload = () => route();
-  const categoryDialog = existing => formDialog({ heading: existing ? 'Edit category' : 'Add category', fields: [{ name: 'name', label: 'Name', required: true, max: 40 }, { name: 'kind', label: 'Type', type: 'select', options: MENU_KINDS }, { name: 'note', label: 'Note under the name (optional)', max: 60, hint: 'Shown on happy hours cards, for example “5 pints + 1 starter”.' }, { name: 'photo', label: 'Photo for the happy hours card', type: 'image' }], values: existing || { kind: 'food' }, save: values => existing ? api('PUT', `categories/${existing.id}`, values) : api('POST', 'categories', values) }).then(saved => saved && reload());
+  const categoryDialog = existing => formDialog({ heading: existing ? 'Edit category' : 'Add category', fields: [{ name: 'name', label: 'Name', required: true, max: 40 }, { name: 'kind', label: 'Type', type: 'select', options: MENU_KINDS }, { name: 'branch', label: 'Shown at', type: 'select', options: [['', 'Both branches'], ...branchOptions()] }, { name: 'note', label: 'Note under the name (optional)', max: 60, hint: 'Shown on happy hours cards, for example “5 pints + 1 starter”.' }, { name: 'photo', label: 'Photo for the happy hours card', type: 'image' }], values: existing || { kind: 'food' }, save: values => existing ? api('PUT', `categories/${existing.id}`, values) : api('POST', 'categories', values) }).then(saved => saved && reload());
   const itemDialog = (existing, categoryId) => formDialog({
     heading: existing ? `Edit ${existing.name}` : 'Add menu item',
     fields: [
@@ -432,7 +459,7 @@ VIEWS.menu = async main => {
   const sections = categories.map((category, index) => {
     const list = items.filter(item => item.categoryId === category.id);
     return h('section', { class: 'card', style: 'padding:0' },
-      h('div', { class: 'cat-head' }, h('h2', null, category.name, h('span', { class: 'muted small' }, ` · ${list.length} item${list.length === 1 ? '' : 's'}`), ['happy', 'combo'].includes(category.kind) && h('span', { class: 'tag' }, MENU_KINDS.find(([key]) => key === category.kind)[1])),
+      h('div', { class: 'cat-head' }, h('h2', null, category.name, h('span', { class: 'muted small' }, ` · ${list.length} item${list.length === 1 ? '' : 's'}`), ['happy', 'combo'].includes(category.kind) && h('span', { class: 'tag' }, MENU_KINDS.find(([key]) => key === category.kind)[1]), category.branch && h('span', { class: 'tag' }, branchOptions().find(([id]) => id === category.branch)?.[1] || category.branch)),
         h('div', { class: 'actions' }, button('↑', () => nudge('categories', categories, index, -1, reload), 'tiny'), button('↓', () => nudge('categories', categories, index, 1, reload), 'tiny'), button('Add item', () => itemDialog(null, category.id), 'tiny'), button('Rename', () => categoryDialog(category), 'link'), button('Delete', () => remove(`categories/${category.id}`, `Delete the ${category.name} category?`, reload), 'link danger'))),
       list.length ? list.map((item, position) => h('div', { class: 'item-row', draggable: true, 'data-id': item.id },
         h('span', { class: 'grip', title: 'Drag to reorder', 'aria-hidden': 'true' }, '⠿'),
@@ -740,6 +767,12 @@ VIEWS.settings = async main => {
     h('form', { class: 'card', onsubmit: async event => { event.preventDefault(); const hours = dayNames.map((unused, day) => { const row = hourRows.find(entry => entry.day === day); return { open: row.open.value, close: row.close.value, closed: row.closed.checked }; }); await attempt(() => put('hours')({ hours }), 'Opening hours saved.'); } }, h('h2', null, 'Opening hours'), h('p', { class: 'muted small' }, 'A closing time earlier than the opening time means after midnight (for example 12:00 to 01:00).'),
       table([{ label: 'Day', cell: row => dayNames[row.day] }, { label: 'Opens', cell: row => row.open }, { label: 'Closes', cell: row => row.close }, { label: 'Closed all day', cell: row => row.closed }], hourRows), h('div', { class: 'dialog-actions' }, h('button', { class: 'btn primary', type: 'submit' }, 'Save'))),
     saveCard('Holidays', [{ name: 'list', label: 'Days the restaurant is closed', type: 'textarea', rows: 4, value: settings.holidays.map(entry => `${entry.date} ${entry.note}`.trim()).join('\n'), hint: 'One per line: date, then an optional note. Example: 2026-10-02 Gandhi Jayanti (dry day)' }], {}, values => put('holidays')({ holidays: lines(values.list).map(line => ({ date: line.slice(0, 10), note: line.slice(10).trim() })) }), 'Holidays are shown on the Visit page and cannot be booked online.'),
+    saveCard('Online ordering', [
+      { name: 'enabled', label: 'Let guests place an order from the website menu', type: 'checkbox' },
+      { name: 'delivery', label: 'Offer delivery (as well as pickup / table service)', type: 'checkbox' },
+      { name: 'deliveryFee', label: 'Delivery fee (₹)', type: 'number', min: 0, step: 'any' },
+      { name: 'minOrder', label: 'Minimum order (₹)', type: 'number', min: 0, step: 'any' },
+    ], settings.ordering, put('ordering'), 'Placed orders appear under Orders, with full guest, item and payment details.'),
     saveCard('Notifications', [
       { name: 'recipientText', label: 'Send new bookings, inquiries and orders to', type: 'textarea', rows: 2, value: notifications.recipients.join('\n'), hint: 'Staff phone numbers or email addresses, one per line.' },
       { name: 'customerChannel', label: 'Message customers by', type: 'select', options: [['whatsapp', 'WhatsApp'], ['sms', 'SMS'], ['email', 'Email (when they gave one)']] },

@@ -218,7 +218,7 @@ function publicSite() {
     booking: { maxParty: booking.maxParty, maxDaysAhead: booking.maxDaysAhead, autoConfirm: booking.autoConfirm },
     ordering: { ...ordering, onlinePayment: paymentsReady() },
     content: { hero: db.content.hero, about: db.content.about, instagramPosts: db.content.instagramPosts },
-    categories: [...db.categories].sort(byOrder).map(({ id, name, kind, note, photo }) => ({ id, name, kind, note: note || '', photo: photo || '' })),
+    categories: [...db.categories].sort(byOrder).map(({ id, name, kind, note, photo, branch }) => ({ id, name, kind, note: note || '', photo: photo || '', branch: branch || '' })),
     items: [...db.items].sort(byOrder).map(({ id, categoryId, name, description, price, photo, diet, badges, available }) => ({ id, categoryId, name, description, price, photo, diet, badges, available })),
     events: db.events.filter(event => event.published && event.date >= date).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time)).map(({ id, title, type, date, time, endTime, poster, description, entryFee, bookingLimit }) => ({ id, title, type, date, time, endTime, poster, description, entryFee, bookingLimit, spotsLeft: spotsLeft({ id, bookingLimit }) })),
     offers: db.offers.filter(offer => offer.active && (!offer.endDate || offer.endDate >= date)).map(({ id, title, description, startDate, endDate, startTime, endTime, days, couponCode, branch, photo }) => ({ id, title, description, startDate, endDate, startTime, endTime, days, couponCode, branch: branch || '', photo: photo || '' })),
@@ -563,6 +563,8 @@ const BADGES = ['Chef’s Special', 'Bestseller', 'New'];
 crud('/api/admin/categories', 'categories', 'menu', 'menu category', (body, existing) => ({
   // "happy" and "combo" categories make up the happy hours list; the note and photo are shown on its cards.
   name: text(body.name, 40, 'Category name', true), kind: choice(body.kind, ['food', 'drink', 'happy', 'combo'], 'Type'), note: text(body.note, 60, 'Note'), photo: imageOf(body.photo), order: existing ? existing.order : nextOrder('categories'),
+  // Empty means the category is shown at every branch.
+  branch: db.settings.branches.some(branch => branch.id === body.branch) ? body.branch : '',
 }), { beforeDelete: category => { if (db.items.some(item => item.categoryId === category.id)) bad('Move or delete the items in this category first.'); } });
 crud('/api/admin/items', 'items', 'menu', 'menu item', (body, existing) => {
   find('categories', body.categoryId);

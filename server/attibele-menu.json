@@ -1,0 +1,221 @@
+{
+  "_note": "Attibele Garden food menu, dated 10-12-25. Items: [name, {label: price|null}, diet, description]. A null price means 'seasonal'.",
+  "categories": [
+    { "id": "att-soups", "name": "Soups", "items": [
+      ["Nasha Special Soup", {"Veg": 169, "Chicken": 189}, "ask", ""],
+      ["Noodles / Tom yam Soup", {"Veg": 169, "Chicken": 179}, "ask", ""],
+      ["Hot & Sour / Manchow / Clear Soup", {"Veg": 159, "Chicken": 179}, "ask", ""],
+      ["Sweet Corn / Lemon Coriander Soup", {"Veg": 159, "Chicken": 179}, "ask", ""],
+      ["Cream of Tomato / Mushroom Soup", {"": 165}, "veg", ""],
+      ["Cream of Chicken Soup", {"": 185}, "nonveg", ""],
+      ["Sea Food / Mutton Soup", {"": 185}, "nonveg", ""]
+    ] },
+    { "id": "att-short-bites", "name": "Short bites", "items": [
+      ["Nachos (Veg / Non-veg)", {"Veg": 189, "Non-veg": 239}, "ask", ""],
+      ["Plain Peanut / Peanut Masala", {"Plain": 140, "Masala": 160}, "veg", ""],
+      ["Boiled Peanut Masala", {"": 170}, "veg", ""],
+      ["Boiled Veg / Boiled Corn / Crispy Corn", {"Boiled veg": 219, "Boiled corn": 209, "Crispy corn": 259}, "veg", ""],
+      ["Roasted Papad / Masala Papad", {"Roasted": 50, "Masala": 70}, "veg", ""],
+      ["Oil Fry Masala Papad", {"": 80}, "veg", ""],
+      ["Cut Fruits / Cashew Nut Fry", {"": 229}, "veg", ""],
+      ["Finger Chips / Onion Pakoda", {"": 209}, "veg", ""],
+      ["Cheese Cherry Pineapple Stick", {"": 209}, "veg", ""]
+    ] },
+    { "id": "att-salads", "name": "Salads", "items": [
+      ["Green Salad / Cucumber Salad (veg)", {"": 140}, "veg", ""],
+      ["Russian / Mexican Corn Salad (veg)", {"": 239}, "veg", ""],
+      ["Kachumber Salad (veg)", {"": 149}, "veg", ""],
+      ["Chicken Tikka Salad (non-veg)", {"": 329}, "nonveg", ""]
+    ] },
+    { "id": "att-platters", "name": "Platters", "items": [
+      ["Chicken Platter / Mixed Platter - Chinese", {"Chicken": 1299, "Mixed": 1399}, "nonveg", ""],
+      ["Veg Assorted Platter - Tandoori / Veg Platter - Chinese", {"": 1099}, "veg", ""],
+      ["Chicken Assorted Platter - Tandoori", {"": 1399}, "nonveg", ""],
+      ["Sea Food Platter", {"": 2299}, "nonveg", ""]
+    ] },
+    { "id": "att-roll", "name": "Roll", "items": [
+      ["Egg Roll / Chicken Kathi Roll / Chicken Egg Roll", {"Egg": 139, "Chicken Kathi": 159, "Chicken egg": 189}, "nonveg", ""],
+      ["Veg / Mushroom Cheese Roll", {"Veg": 119, "Mushroom cheese": 159}, "veg", ""],
+      ["Veg / Chicken Spring Roll", {"Veg": 239, "Chicken": 279}, "ask", ""]
+    ] },
+    { "id": "att-andhra", "name": "Andhra style", "items": [
+      ["Chilly Chicken Andhra Style / Guntoor / Pudina Chicken", {"": 349}, "nonveg", ""],
+      ["Chicken Ghee Roast / Pepper Fry / Roast", {"": 349}, "nonveg", ""],
+      ["Mutton Ghee Roast / Pepper Fry / Roast", {"": 399}, "nonveg", ""]
+    ] },
+    { "id": "att-pizza", "name": "Pizza", "items": [
+      ["Margarita / Mexican / Paneer Tikka / Four Cheese Pizza", {"": 379}, "veg", ""],
+      ["Chicken Tikka / BBQ Chicken Pizza", {"": 489}, "nonveg", ""]
+    ] },
+    { "id": "att-veg-starters", "name": "Veg starters", "items": [
+      ["Paneer (65 / Chilly / Manchurian / Dry Pepper / Shanghai)", {"": 319}, "veg", ""],
+      ["Mushroom (Chilly / Manchurian / Dry pepper / Sauteed)", {"": 279}, "veg", ""],
+      ["Baby (Crispy Baby Corn / Chilly / Manchurian / Dry Pepper)", {"": 279}, "veg", ""],
+      ["Gobi (65 / Manchurian / Singapuri)", {"": 279}, "veg", ""],
+      ["Shanghai Potato / Chilly Crispy Potato / Honey", {"": 279}, "veg", ""],
+      ["Corn-n-Corn / Crispy Veg / Chilly Veg", {"": 279}, "veg", ""],
+      ["Veg Manchurian", {"": 299}, "veg", ""],
+      ["Veg Cheese Ball", {"": 289}, "veg", ""],
+      ["Thread Paneer", {"": 339}, "veg", ""]
+    ] },
+    { "id": "att-egg-starter", "name": "Egg starter", "items": [
+      ["Boiled Egg", {"": 69}, "nonveg", ""],
+      ["Egg Bhurji / Pakoda / Cheese Omelet", {"": 159}, "nonveg", ""],
+      ["Egg Omelet / Bulls Eye (Half Boiled)", {"": 109}, "nonveg", ""],
+      ["Egg Chilly / Dry Pepper", {"": 229}, "nonveg", ""]
+    ] },
+    { "id": "att-seafood-starters", "name": "Sea food starters", "items": [
+      ["Anjal Tawa Fry / Masala Fry / Fish Tikka", {"": null}, "nonveg", "Seasonal"],
+      ["Bangada Tawa Fry / Masala Fry / Bangada Tandoori", {"": null}, "nonveg", "Seasonal"],
+      ["Fish Pepper Dry / Fish Chilly Garlic / Fish Kebab", {"": 379}, "nonveg", ""],
+      ["Apollo Fish / Fish Manchurian / Corn / Phuket / Lemon", {"": 389}, "nonveg", ""],
+      ["Tandoori Prawns / Tawa / Ghee", {"": 409}, "nonveg", ""],
+      ["Butter Garlic Prawns", {"": 409}, "nonveg", ""],
+      ["Prawns (Chilly / Pepper Dry / Manchurian / 65)", {"": 399}, "nonveg", ""]
+    ] },
+    { "id": "att-grill", "name": "Grill special", "items": [
+      ["Grill Chicken Half", {"": 299}, "nonveg", ""],
+      ["Grill Chicken Full", {"": 599}, "nonveg", ""]
+    ] },
+    { "id": "att-thai", "name": "Thai curry", "items": [
+      ["Chicken Red Curry / Yellow / Green", {"": 429}, "nonveg", ""],
+      ["Prawns Red Curry / Yellow / Green", {"": 529}, "nonveg", ""]
+    ] },
+    { "id": "att-nonveg-chinese", "name": "Non veg starters Chinese", "items": [
+      ["Chicken 65 / Manchurian", {"": 329}, "nonveg", ""],
+      ["Chicken Shanghai / Chilly", {"": 329}, "nonveg", ""],
+      ["Chicken Pepper Dry", {"": 329}, "nonveg", ""],
+      ["Chicken Lollipop / Kebab", {"": 329}, "nonveg", ""],
+      ["Chicken Hunan / Lemon / Garlic", {"": 329}, "nonveg", ""],
+      ["Chicken Dragon / Herb / Hong Kong Chicken", {"": 329}, "nonveg", ""],
+      ["Crispy Chicken / Crispy Honey / Crispy Finger", {"": 329}, "nonveg", ""],
+      ["Corn Chicken / Pisoli Chicken", {"": 329}, "nonveg", ""],
+      ["Chicken Salt & Pepper / Dry Pepper", {"": 329}, "nonveg", ""],
+      ["Green Pepper Chicken", {"": 329}, "nonveg", ""],
+      ["Mutton Pepper Dry / Salt & Pepper / Crispy Chilly Lamb", {"": 399}, "nonveg", ""],
+      ["BBQ Wings / Peri Peri Wings", {"": 379}, "nonveg", ""],
+      ["Chicken Chilly Wine", {"": 349}, "nonveg", ""]
+    ] },
+    { "id": "att-tandoori-veg", "name": "Tandoori veg", "items": [
+      ["Paneer Tikka / Malai Tikka", {"Paneer tikka": 349, "Malai tikka": 359}, "veg", ""],
+      ["Harabara Kebab / Mushroom Tikka", {"": 315}, "veg", ""]
+    ] },
+    { "id": "att-tandoori-nonveg", "name": "Tandoori non-veg", "items": [
+      ["Tangdi Kebab Half / Full", {"Half": 229, "Full": 409}, "nonveg", ""],
+      ["Kalmi Kebab Half / Full", {"Half": 249, "Full": 429}, "nonveg", ""],
+      ["Tandoori Chicken Half / Full", {"Half": 379, "Full": 629}, "nonveg", ""],
+      ["Nasha Special / Irani Kebab", {"Nasha special": 379, "Irani kebab": 399}, "nonveg", ""],
+      ["Arabian Kebab Half / Full", {"Half": 399, "Full": 699}, "nonveg", ""],
+      ["Chicken Kalimiri / Hariyali / Banjara / Garlic Kebab", {"": 359}, "nonveg", ""],
+      ["Reshmi / Malai / Tandoori Kebab / Tandoori Wings", {"": 379}, "nonveg", ""],
+      ["Kashmiri / Chicken Tikka", {"": 369}, "nonveg", ""]
+    ] },
+    { "id": "att-dal", "name": "Dal", "items": [
+      ["Dal Fry", {"": 219}, "veg", ""],
+      ["Dal Palak / Tadka", {"": 229}, "veg", ""]
+    ] },
+    { "id": "att-veg-gravy", "name": "Veg gravy", "items": [
+      ["Malai Kofta / Paneer Tikka Masala", {"Malai kofta": 305, "Paneer tikka masala": 339}, "veg", ""],
+      ["Veg Jaipuri / Kalimirch / Kofta / Zabardast", {"": 289}, "veg", ""],
+      ["Babycorn Masala / Kadai Vegetable", {"": 289}, "veg", ""],
+      ["Mushroom Masala / Kadai / Veg Kolhapuri", {"": 295}, "veg", ""],
+      ["Kadai Paneer / Palak Paneer / Kaju Masala", {"": 329}, "veg", ""],
+      ["Nasha Special Veg Gravy", {"": 309}, "veg", ""]
+    ] },
+    { "id": "att-nonveg-gravy", "name": "Non-veg gravy", "items": [
+      ["Nasha Special Chicken Gravy / Punjabi Murgh", {"": 349}, "nonveg", ""],
+      ["Chicken Tikka Masala", {"": 349}, "nonveg", ""],
+      ["Chicken Masala / Kadai / Adraki / Jaipuri / Zabardast", {"": 319}, "nonveg", ""],
+      ["Butter Chicken Masala / Chicken Kali Mirch / Kolhapuri", {"": 329}, "nonveg", ""],
+      ["Egg Masala / Kheema Masala", {"": 249}, "nonveg", ""]
+    ] },
+    { "id": "att-chinese-veg-gravy", "name": "Chinese veg gravy", "items": [
+      ["Mix Vegetable Hunan Sauce Gravy / Veg Mushroom Gravy", {"": 309}, "veg", ""],
+      ["Veg Mushroom, Bamboo Shoot With Paneer Gravy", {"": 329}, "veg", ""]
+    ] },
+    { "id": "att-chinese-nonveg-gravy", "name": "Chinese non-veg gravy", "items": [
+      ["Sweet And Sour Chicken", {"": 329}, "nonveg", ""],
+      ["Chicken Black Bean Chilly Sauce Gravy", {"": 329}, "nonveg", ""],
+      ["Chicken Mushroom Bamboo Shoot Gravy", {"": 329}, "nonveg", ""],
+      ["Chicken With Veg Chilly Oyster Sauce", {"": 325}, "nonveg", ""]
+    ] },
+    { "id": "att-seafood-gravy", "name": "Seafood gravy", "items": [
+      ["Fish Tikka Masala / Fish Masala / Fish Curry", {"": 429}, "nonveg", ""],
+      ["Nasha Special Seafood Gravy / Garlic Prawns Gravy", {"": 409}, "nonveg", ""],
+      ["Fish Chilly Garlic Gravy / Fish Schezwan Sauce Gravy", {"": 389}, "nonveg", ""],
+      ["Prawns Masala / Zabardast", {"": 409}, "nonveg", ""]
+    ] },
+    { "id": "att-mutton-gravy", "name": "Mutton gravy", "items": [
+      ["Nasha Special Mutton Gravy / Keema Masala", {"": 429}, "nonveg", ""],
+      ["Mutton Rogan Josh / Zabardast", {"": 419}, "nonveg", ""],
+      ["Mutton Masala / Kadai", {"": 419}, "nonveg", ""]
+    ] },
+    { "id": "att-rotis", "name": "Earthnoven (rotis)", "items": [
+      ["Phulka / Butter Phulka", {"Phulka": 50, "Butter phulka": 55}, "veg", ""],
+      ["Tandoori Roti / Butter Roti", {"Tandoori": 65, "Butter": 70}, "veg", ""],
+      ["Plain Kulcha / Butter Kulcha", {"Plain": 70, "Butter": 80}, "veg", ""],
+      ["Plain Naan / Butter Naan", {"Plain": 75, "Butter": 80}, "veg", ""],
+      ["Garlic Naan / Kashmiri Naan", {"Garlic": 85, "Kashmiri": 110}, "veg", ""],
+      ["Methi / Pudina / Masala Kulcha", {"": 80}, "veg", ""],
+      ["Lacha / Tandoori / Pudina / Methi Paratha", {"": 85}, "veg", ""],
+      ["Paneer Stuffed Kulcha / Aloo Kulcha", {"": 95}, "veg", ""],
+      ["Onion Stuffed Kulcha / Rumali Roti", {"": 85}, "veg", ""],
+      ["Bread Basket", {"": 380}, "veg", ""]
+    ] },
+    { "id": "att-rice-biryani", "name": "Rice and biryani", "items": [
+      ["Jeera Rice / Veg Biryani / Veg Pulao", {"Jeera rice": 199, "Veg biryani": 229, "Veg pulao": 239}, "veg", ""],
+      ["Hyderabadi Egg Biryani", {"": 260}, "nonveg", ""],
+      ["Hyderabadi Chicken / Mutton Biryani", {"Chicken": 270, "Mutton": 299}, "nonveg", ""],
+      ["Andhra Style Egg Biryani", {"": 240}, "nonveg", ""],
+      ["Andhra Style Chicken Biryani / Mutton Biryani", {"Chicken": 260, "Mutton": 290}, "nonveg", ""],
+      ["Dum Pukht Chicken Biryani / Mutton Biryani", {"Chicken": 289, "Mutton": 319}, "nonveg", ""],
+      ["Prawns / Fish Biryani", {"": 360}, "nonveg", ""],
+      ["Fried Rice (Veg / Egg / Chicken)", {"Veg": 250, "Egg": 260, "Chicken": 280}, "ask", ""],
+      ["Nasha Special Fried Rice (Veg / Chicken)", {"Veg": 309, "Chicken": 329}, "ask", ""],
+      ["Fried Rice (Mutton / Prawns)", {"Mutton": 299, "Prawns": 359}, "nonveg", ""],
+      ["Triple Schezwan Fried Rice (Veg / Chicken)", {"Veg": 319, "Chicken": 379}, "ask", ""],
+      ["Mushroom / Shanghai / Hong Kong Veg Fried Rice", {"": 279}, "veg", ""],
+      ["Mixed Non Veg Fried Rice", {"": 329}, "nonveg", ""],
+      ["Steam Rice / Curd Rice / Special Curd Rice", {"Steam rice": 149, "Curd rice": 149, "Special curd rice": 169}, "veg", ""]
+    ] },
+    { "id": "att-noodles", "name": "Noodles", "items": [
+      ["Veg / Prawns / Chicken Soft Noodles", {"Veg": 275, "Prawns": 309, "Chicken": 285}, "ask", ""],
+      ["Veg / Chicken Hakka Noodles", {"Veg": 280, "Chicken": 295}, "ask", ""],
+      ["Chicken Garlic Butter / Chicken Chilly Spicy Noodles", {"": 305}, "nonveg", ""],
+      ["Veg Schezwan Butter / Veg Chilly Spicy Noodles", {"": 289}, "veg", ""],
+      ["Egg / Mushroom Noodles", {"": 289}, "ask", ""],
+      ["Mixed Non Veg Noodles", {"": 329}, "nonveg", ""]
+    ] },
+    { "id": "att-desserts", "name": "Desserts", "items": [
+      ["Gulab Jamun / With Ice Cream", {"Plain": 149, "With ice cream": 189}, "veg", ""],
+      ["Fruit Salad with Ice Cream", {"": 230}, "veg", "A variety of fruits topped with jelly sauce."],
+      ["Chocolate Fudge Ice Cream", {"": 209}, "veg", "Vanilla ice cream topped with chocolate sauce and nuts."],
+      ["ScotsMan Ice Cream", {"": 209}, "veg", "Vanilla and butterscotch ice cream topped with cashew nuts and butterscotch sauce."],
+      ["Dry Fruits with Vanilla Ice Cream", {"": 209}, "veg", ""],
+      ["Triple Sundae Ice Cream", {"": 230}, "veg", "A mix of butterscotch, strawberry and chocolate, each with its own sauce."],
+      ["Mango Wallets", {"": 230}, "veg", "Mango and vanilla ice cream with mango sauce."],
+      ["Gudbud Ice Cream", {"": 230}, "veg", "Fresh fruits with three flavours of ice cream, mint sauce and dry fruits."],
+      ["Banana Split", {"": 230}, "veg", "Chocolate, strawberry and vanilla ice cream with their sauces."],
+      ["Nasha Special Ice Cream", {"": 260}, "veg", ""]
+    ] },
+    { "id": "att-beverages", "name": "Beverages", "items": [
+      ["Soft Drinks 300ml / 750ml", {"300 ml": 50, "750 ml": 80}, "veg", ""],
+      ["Soda 300ml / 750ml", {"300 ml": 40, "750 ml": 70}, "veg", ""],
+      ["Mineral Water 1 Ltr", {"": 25}, "veg", ""],
+      ["Seasonal Fresh Fruit Juice", {"": 139}, "veg", ""],
+      ["Milk Shake", {"": 169}, "veg", "Chocolate / vanilla / strawberry / butterscotch / mango."],
+      ["Fresh Lime Water (Sweet / Salt / Mix)", {"": 80}, "veg", ""],
+      ["Fresh Lime Soda (Sweet / Salt / Mix)", {"": 99}, "veg", ""],
+      ["Butter Milk (Salt / Mix)", {"": 119}, "veg", ""],
+      ["Lassi (Sweet / Salt)", {"": 139}, "veg", ""]
+    ] },
+    { "id": "att-raita", "name": "Raita", "items": [
+      ["Veg / Mixed / Pineapple Raita", {"Veg": 99, "Mixed": 109, "Pineapple": 119}, "veg", ""]
+    ] },
+    { "id": "att-hot-beverages", "name": "Hot beverages", "items": [
+      ["Badam Milk", {"": 99}, "veg", ""],
+      ["Tea / Coffee / Lemon Tea", {"": 40}, "veg", ""],
+      ["Masala Tea / Green Tea / Milk", {"": 50}, "veg", ""]
+    ] }
+  ]
+}

@@ -201,7 +201,9 @@
     add(id) { const value = cart.read(); value[id] = Math.min(20, (value[id] || 0) + 1); cart.write(value); },
   };
   // Happy hours ("happy" and "combo") categories have their own section and are not part of the regular menu or ordering.
-  const regularMenu = site => site.categories.filter(category => category.kind === 'food' || category.kind === 'drink');
+  // A category with no branch set shows at every branch; otherwise only at the one chosen at the top of the page.
+  const atThisBranch = category => !category.branch || category.branch === branchId;
+  const regularMenu = site => site.categories.filter(category => (category.kind === 'food' || category.kind === 'drink') && atThisBranch(category));
   const orderable = (site, item) => site.ordering.enabled && item.available && item.price !== null && item.diet !== 'alcoholic' && regularMenu(site).some(category => category.id === item.categoryId);
   function cartLines(site) {
     const value = cart.read();
@@ -247,15 +249,16 @@
 
   function drawHappyHours(site) {
     // Combos need a price; happy hours food without one shows "Ask" instead.
-    const listed = (kind, category) => category.kind === kind && site.items.some(item => item.categoryId === category.id && item.available && (kind === 'happy' || item.price !== null));
+    const listed = (kind, category) => category.kind === kind && atThisBranch(category) && site.items.some(item => item.categoryId === category.id && item.available && (kind === 'happy' || item.price !== null));
     const priced = category => site.items.filter(item => item.categoryId === category.id && item.available && item.price !== null);
     const offered = category => site.items.filter(item => item.categoryId === category.id && item.available);
     const groups = site.categories.filter(category => listed('happy', category));
     const combos = site.categories.filter(category => listed('combo', category)).flatMap(priced);
-    if (!groups.length && !combos.length) return;
     // The 1+1 tag belongs to the printed happy hours drinks list (ids starting "hh-").
     $$('[data-live="happy-groups"]').forEach(node => { node.innerHTML = groups.map(group => `<article class="happy-group">${happyPhoto(group.photo)}<h3>${esc(group.name)}${group.id.startsWith('hh-') ? ' <span>1+1</span>' : ''}</h3>${group.note ? `<p class="happy-note">${esc(group.note)}</p>` : ''}<ul>${offered(group).map(item => `<li><span>${esc(item.name)}</span><i></i><b>${item.price === null ? 'Ask' : rupees(item.price)}</b></li>`).join('')}</ul></article>`).join(''); });
     $$('[data-live="happy-combos"]').forEach(node => { node.innerHTML = combos.map(combo => `<article class="happy-combo">${happyPhoto(combo.photo)}<div><p class="eyebrow">COMBO</p><h3>${esc(combo.name)}</h3></div><b>${rupees(combo.price)}</b><ul>${combo.description.split('+').map(part => part.trim()).filter(Boolean).map(part => `<li>${esc(part)}</li>`).join('')}</ul></article>`).join(''); });
+    // Hidden entirely at a branch with no happy hours list of its own, instead of leaving the other branch's behind.
+    $$('.happy-menu').forEach(node => { node.hidden = !groups.length && !combos.length; });
   }
 
   function drawMenu(site) {
@@ -530,6 +533,9 @@
         store.set('nasha-branch', button.dataset.branch);
         applyBranch(site);
         refreshSlots();
+        // Some categories belong to only one branch, so the menu is redrawn for the one just chosen.
+        drawMenu(site);
+        drawHappyHours(site);
         announce(`Showing ${info.name}, ${button.textContent}.`);
       }));
     }
