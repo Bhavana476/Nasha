@@ -1,0 +1,144 @@
+{
+  "_note": "Rooftop bar menu dated 17-08-26. Item: [name, {size: price}, ingredients]. Spirits are per 30 ml.",
+  "categories": [
+    { "id": "b-draught", "name": "Draught beer", "photo": "assets/drink-beer-bucket.jpg", "items": [
+      ["Woodpecker", {"Tower": 1650, "Pitcher": 898, "Mug": 193}, ""],
+      ["Budweiser Premium", {"Tower": 2250, "Pitcher": 1198, "Mug": 253}, ""],
+      ["Budweiser Magnum", {"Tower": 2398, "Pitcher": 1273, "Mug": 270}, ""],
+      ["Kingfisher Premium", {"Tower": 1650, "Pitcher": 898, "Mug": 193}, ""],
+      ["Kingfisher Ultra", {"Tower": 2250, "Pitcher": 1198, "Mug": 253}, ""],
+      ["Kingfisher Ultra Max", {"Tower": 2398, "Pitcher": 1273, "Mug": 270}, ""]
+    ] },
+    { "id": "b-imported-beer", "name": "Imported beer", "photo": "assets/drink-beer-bucket.jpg", "items": [
+      ["Corona", {"500 ml": 534, "330 ml": 466}, ""],
+      ["Heineken", {"650 ml": 606, "500 ml": 490, "330 ml": 418}, ""],
+      ["Hoegaarden", {"500 ml": 534, "330 ml": 466}, ""]
+    ] },
+    { "id": "b-beer", "name": "Regular beer", "photo": "assets/drink-beer-bucket.jpg", "items": [
+      ["Budweiser Premium", {"650 ml": 510, "500 ml": 406, "330 ml": 354}, ""],
+      ["Budweiser Magnum", {"650 ml": 558, "500 ml": 430, "330 ml": 382}, ""],
+      ["Kingfisher Premium", {"650 ml": 418, "500 ml": 330, "330 ml": 286}, ""],
+      ["Kingfisher Strong", {"650 ml": 430, "500 ml": 342, "330 ml": 262}, ""],
+      ["Kingfisher Ultra", {"650 ml": 510, "500 ml": 406, "330 ml": 354}, ""],
+      ["Kingfisher Ultra Max", {"650 ml": 534, "500 ml": 418, "330 ml": 354}, ""],
+      ["Tuborg Premium", {"650 ml": 430, "500 ml": 342, "330 ml": 262}, ""],
+      ["Tuborg Strong", {"650 ml": 440, "500 ml": 342, "330 ml": 262}, ""],
+      ["Carlsberg Premium", {"650 ml": 522, "500 ml": 418, "330 ml": 286}, ""],
+      ["Carlsberg Elephant", {"650 ml": 562, "500 ml": 442, "330 ml": 358}, ""]
+    ] },
+    { "id": "b-breezer", "name": "Breezer", "photo": "", "items": [
+      ["Bacardi Breezer", {"500 ml": 450, "275 ml": 294}, ""],
+      ["Bacardi Flavoured Plus", {"500 ml": 418, "275 ml": 262}, ""]
+    ] },
+    { "id": "b-red-wine", "name": "Red wine", "photo": "", "items": [
+      ["Sula Cabernet Shiraz", {"Bottle 750 ml": 2242, "Glass": 466}, ""],
+      ["Sula Dindori", {"Bottle 750 ml": 2590, "Glass": 538}, ""],
+      ["Big Banyan Cabernet", {"Bottle 750 ml": 2026, "Glass": 438}, ""],
+      ["Jacob's Creek Classic Shiraz", {"Bottle 750 ml": 3042, "Glass": 642}, ""],
+      ["Madera (red)", {"Bottle 750 ml": 1078, "Glass": 258}, ""]
+    ] },
+    { "id": "b-white-wine", "name": "White wine", "photo": "", "items": [
+      ["Big Banyan Sauvignon Blanc", {"Bottle 750 ml": 2026, "Glass": 438}, ""],
+      ["Madera (white)", {"Bottle 750 ml": 1018, "Glass": 238}, ""],
+      ["Jacob's Creek Chardonnay", {"Bottle 750 ml": 3046, "Glass": 646}, ""],
+      ["Sula Chenin Blanc", {"Bottle 750 ml": 1798, "Glass": 390}, ""]
+    ] },
+    { "id": "b-single-malt", "name": "Single malt whisky", "photo": "", "items": [
+      ["Glenfiddich 15 yrs", {"30 ml": 1374}, ""], ["Glen Grant 10 yrs", {"30 ml": 834}, ""], ["Glenlivet 12 yrs", {"30 ml": 1014}, ""], ["Singleton", {"30 ml": 1126}, ""]
+    ] },
+    { "id": "b-scotch", "name": "Imported Scotch whisky", "photo": "", "items": [
+      ["Ballantine's", {"30 ml": 286}, ""], ["Johnnie Walker Red Label", {"30 ml": 294}, ""], ["Johnnie Walker Gold Label Reserve", {"30 ml": 526}, ""],
+      ["Johnnie Walker Black Label", {"30 ml": 438}, ""], ["Johnnie Walker Blue Label", {"30 ml": 1482}, ""], ["Chivas Regal 12 yrs", {"30 ml": 430}, ""],
+      ["Chivas Regal 18 yrs", {"30 ml": 802}, ""], ["Chivas Regal 25 yrs", {"30 ml": 2494}, ""], ["Dalmore 12 yrs", {"30 ml": 826}, ""],
+      ["Royal Salute 21 yrs", {"30 ml": 1341}, ""], ["Yamazaki 12 yrs", {"30 ml": 1114}, ""]
+    ] },
+    { "id": "b-bourbon", "name": "Bourbon & Tennessee whiskey", "photo": "", "items": [
+      ["Jim Beam Bourbon", {"30 ml": 282}, ""], ["Jack Daniel's Tennessee", {"30 ml": 406}, ""]
+    ] },
+    { "id": "b-imfl", "name": "IMFL whisky", "photo": "", "items": [
+      ["Teacher's Highland Cream / Black & White", {"30 ml": 222}, ""], ["VAT 69 / 100 Pipers", {"30 ml": 222}, ""], ["Dewar's White Label", {"30 ml": 222}, ""],
+      ["Teacher's 50", {"30 ml": 298}, ""], ["Black Dog 12 yrs", {"30 ml": 318}, ""], ["Black Dog 8 yrs", {"30 ml": 222}, ""]
+    ] },
+    { "id": "b-domestic-whisky", "name": "Domestic whisky", "photo": "", "items": [
+      ["Oaksmith", {"30 ml": 131}, ""], ["Oaksmith Gold / Antiquity Blue", {"30 ml": 166}, ""], ["Signature / Blenders Pride", {"30 ml": 162}, ""]
+    ] },
+    { "id": "b-vodka", "name": "Vodka", "photo": "assets/drink-vodka.jpg", "items": [
+      ["Absolut / Absolut flavoured", {"30 ml": 310}, ""], ["Smirnoff / Smirnoff flavoured", {"30 ml": 166}, ""], ["Romanov / flavoured", {"30 ml": 90}, ""],
+      ["Magic Moments / flavoured", {"30 ml": 114}, ""], ["Grey Goose", {"30 ml": 510}, ""]
+    ] },
+    { "id": "b-gin", "name": "Gin", "photo": "assets/drink-gin.jpg", "items": [
+      ["Blue Riband", {"30 ml": 90}, ""], ["Beefeater", {"30 ml": 286}, ""], ["Bombay Sapphire / Tanqueray London", {"30 ml": 318}, ""]
+    ] },
+    { "id": "b-rum", "name": "Rum", "photo": "assets/drink-rum.jpg", "items": [
+      ["Old Monk / McDowell's rum", {"30 ml": 78}, ""], ["Hercules Deluxe / Old Monk White rum", {"30 ml": 106}, ""], ["Bacardi White / Bacardi flavours", {"30 ml": 166}, ""]
+    ] },
+    { "id": "b-brandy", "name": "Cognac & brandy", "photo": "assets/drink-brandy.jpg", "items": [
+      ["Mansion House", {"30 ml": 90}, ""], ["Hobsons Brandy", {"30 ml": 222}, ""], ["Napoleon VSOP", {"30 ml": 130}, ""],
+      ["Morpheus XO Brandy", {"30 ml": 150}, ""], ["Roulette / Good Man", {"30 ml": 166}, ""], ["Morpheus Blue", {"30 ml": 222}, ""]
+    ] },
+    { "id": "b-tequila", "name": "Tequila", "photo": "assets/drink-tequila.jpg", "items": [
+      ["Tequila Warehouse", {"30 ml": 222}, ""], ["Tequila Premium Gold", {"30 ml": 222}, ""], ["Casco Viejo Silver / Jose Cuervo Blue", {"30 ml": 322}, ""], ["Don Angel Tequila Blanco", {"30 ml": 322}, ""]
+    ] },
+    { "id": "b-liqueur", "name": "Imported liqueur", "photo": "", "items": [
+      ["Kahlua", {"30 ml": 298}, ""], ["Jägermeister", {"30 ml": 418}, ""], ["Baileys", {"30 ml": 466}, ""]
+    ] },
+    { "id": "b-classic-cocktails", "name": "Classic cocktails", "photo": "assets/drink-mocktail.jpg", "items": [
+      ["Cosmopolitan", {"": 466}, "Vodka, cranberry juice, triple sec, lime juice"],
+      ["Whiskey sour", {"": 478}, "Bourbon, pineapple juice, egg white, simple syrup, lime juice"],
+      ["Old fashioned", {"": 478}, "Bourbon, sugar cube, Angostura bitters, orange peel, orange juice"],
+      ["Martini", {"": 466}, "Gin, dry vermouth, olives"],
+      ["Piña colada", {"": 450}, "White rum, pineapple juice, fresh cream, coconut syrup"],
+      ["Margarita", {"": 478}, "Tequila, lime juice, triple sec"],
+      ["Sex on the beach / Screwdriver", {"": 450}, "Vodka, peach syrup, orange and cranberry juice / vodka and orange juice"],
+      ["Bloody Mary", {"": 478}, "Vodka, tomato juice, salt, Tabasco, celery stick"]
+    ] },
+    { "id": "b-signature-cocktails", "name": "Nasha's signature cocktails", "photo": "assets/drink-mocktail.jpg", "items": [
+      ["Nasha Full Fledge", {"": 466}, "Rum, sweet banana syrup and red wine"],
+      ["Fire Cracker", {"": 466}, "Fresh watermelon, hot sauce, vodka, lime juice, topped with tonic water"],
+      ["Blackcurrant margarita", {"": 478}, "Tequila, pineapple juice, litchi juice, blackcurrant crush, lime juice"],
+      ["Naughty Girl", {"": 490}, "Vodka, fresh orange, lime, peach and cranberry juice"],
+      ["Hot toddy", {"": 450}, "Brandy with Indian spices and syrup"],
+      ["Gift of Love", {"": 450}, "Vodka, light rum, basil leaves, passion fruit and lime juice"],
+      ["Michelada", {"": 750}, "Vodka, tomato juice, Tabasco, Worcestershire sauce, salt and pepper, topped with Corona"],
+      ["Bar man special cocktail", {"": 750}, "Ask the bar man for today's special"]
+    ] },
+    { "id": "b-shooters", "name": "Shooters", "photo": "", "items": [
+      ["Chilled Fire Ball", {"": 298}, ""],
+      ["Blue Kamikaze / Jelly shot", {"": 406}, "Vodka, lime juice, triple sec / jelly with flavoured vodka"],
+      ["Mad Dog / Pickle shot", {"": 406}, "Raspberry syrup, tequila, Tabasco / vodka, gherkins, tajin"],
+      ["B-52", {"": 714}, "Baileys, Cointreau, Kahlua"],
+      ["Jäger Bomb / BMW", {"": 750}, "Jägermeister with Red Bull / Baileys, Malibu, whisky"],
+      ["Flaming Lamborghini (tower)", {"": 1198}, ""]
+    ] },
+    { "id": "b-sangria", "name": "Sangria", "photo": "", "items": [
+      ["Sangria red", {"": 526}, "Red wine, brandy, grape juice, apples, oranges, cherries, cloves, cinnamon and pomegranate"],
+      ["Sangria white", {"": 526}, "White wine, vodka, pear, apples, oranges, cloves, cinnamon, star anise"],
+      ["Sangria rosé", {"": 526}, "Rosé wine, peach, gin, topped with apple juice and peaches"]
+    ] },
+    { "id": "b-larger", "name": "Larger than life", "photo": "", "items": [
+      ["Long Island iced tea", {"": 678}, "Five white spirits, lime, topped with Coke"],
+      ["Bull Frog", {"": 714}, "Five white spirits topped with Red Bull"],
+      ["Bangalore Sunset", {"": 678}, "Five white spirits and red wine, peach flavours and lime juice"],
+      ["Seven Wonder", {"": 750}, "Five white spirits, whisky, brandy, orange juice"]
+    ] },
+    { "id": "b-mocktails", "name": "Pure thoughts (mocktails)", "photo": "assets/drink-mocktail.jpg", "soft": true, "items": [
+      ["Mojitos", {"": 270}, "Ask for flavours"],
+      ["Oh My Guava", {"": 298}, "Guava juice, guava chilli syrup, lime juice and desi chatpata"],
+      ["Apple Kiwi Blast", {"": 270}, "Apple juice, green apple syrup, cinnamon, fresh cream, kiwi crush"],
+      ["Pink Velvet", {"": 270}, "Pineapple juice, strawberry crush, kaffir lime leaves, lime juice"],
+      ["Green Heaven", {"": 270}, "Pineapple juice, kiwi crush, lime juice, sugar syrup, cranberry juice"],
+      ["Strawberry Orange Chilly", {"": 270}, "Strawberry crush, orange juice, Thai chilli, basil, lime juice, topped with soda"],
+      ["Coconut Pie", {"": 270}, "Pineapple juice, fresh cream, coconut syrup"],
+      ["Fruit punch", {"": 270}, "Mixed fruit juices, strawberry crush, fresh cream"],
+      ["Lemon iced tea", {"": 270}, "Peach syrup, tea, lemon juice, orange juice"],
+      ["Ex Girlfriend (frozen)", {"": 330}, "Strawberry crush, pineapple juice, lime juice, rose syrup"],
+      ["Nasha The Coolest", {"": 378}, "Watermelon, rosemary, strawberry, honey, coconut water"],
+      ["Bar man special mocktail", {"": 378}, "Ask the bar man for today's special"]
+    ] },
+    { "id": "b-soft", "name": "Soft drinks & water", "photo": "", "soft": true, "items": [
+      ["Fresh lime water – salt / sweet / mix", {"": 118}, ""], ["Fresh lime soda – salt / sweet / mix", {"": 150}, ""],
+      ["Ginger ale / tonic water", {"": 150}, ""], ["Energy drink – Red Bull / Monster", {"": 262}, ""], ["Diet Coke / packed juices", {"": 130}, ""],
+      ["Mineral water", {"": 40}, ""], ["Soda", {"300 ml": 59, "750 ml": 106}, ""], ["Soft drinks", {"300 ml": 70, "600 ml": 106, "750 ml": 130}, ""]
+    ] }
+  ]
+}

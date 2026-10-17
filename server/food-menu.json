@@ -1,0 +1,129 @@
+{
+  "_note": "BTM food menu dated 17-08-26. Each item: [name, price (null = seasonal), diet, description].",
+  "categories": [
+    { "id": "f-soup", "name": "Soup", "items": [
+      ["Cream of mushroom / tomato soup", 149, "veg", ""],
+      ["Veg hot & sour / manchow soup", 129, "veg", ""],
+      ["Chicken hot & sour / manchow soup", 149, "nonveg", ""]
+    ] },
+    { "id": "f-short-bites", "name": "Short bites", "items": [
+      ["Chatpat peanut masala", 138, "veg", "Half ₹138 · Full ₹215"],
+      ["Classic green salad", 155, "veg", ""],
+      ["Roasted papad", 85, "veg", ""],
+      ["Masala papad", 108, "veg", ""],
+      ["French fries", 155, "veg", "Half ₹155 · Full ₹251"],
+      ["Nachos (veg)", 227, "veg", ""],
+      ["Nachos (non-veg)", 287, "nonveg", ""],
+      ["Onion rings / onion pakoda", 179, "veg", "Half ₹179 · Full ₹289"],
+      ["Crispy corn", 192, "veg", "Half ₹192 · Full ₹300"],
+      ["Corn paneer tikki / corn cheese balls", 325, "veg", ""],
+      ["Cheesy garlic bread", 300, "veg", ""],
+      ["Cheesy paneer cutlets / cheese cherry pineapple", 360, "veg", ""]
+    ] },
+    { "id": "f-burgers", "name": "Badass burgers", "items": [
+      ["Veg patty burger", 275, "veg", "Served with fries, salad and dips."],
+      ["Crispy paneer burger", 335, "veg", "Served with fries, salad and dips."],
+      ["Juicy chicken patty burger", 335, "nonveg", "Served with fries, salad and dips."],
+      ["Mutton patty burger", 426, "nonveg", "Served with fries, salad and dips."]
+    ] },
+    { "id": "f-veg-starters", "name": "Veg starters", "items": [
+      ["Gobi / paneer / baby corn / mushroom Manchurian", 335, "veg", ""],
+      ["Gobi / paneer / baby corn / mushroom chilly", 335, "veg", ""],
+      ["Paneer / mushroom tikka / hara bara kabab / malai tikka", 335, "veg", "From the tandoor."],
+      ["Veg platter", 1199, "veg", ""]
+    ] },
+    { "id": "f-nonveg-starters", "name": "Non-veg starters", "items": [
+      ["Guntur chicken / chicken fry / lemon chicken", 325, "nonveg", ""],
+      ["Chicken kabab", 192, "nonveg", "Half ₹192 · Full ₹312"],
+      ["Chilly chicken / Manchurian / 65 / chicken lollipop", 312, "nonveg", ""],
+      ["Mutton fry / pepper dry", 420, "nonveg", ""]
+    ] },
+    { "id": "f-house-special", "name": "Nasha house special", "items": [
+      ["Butter garlic mushroom", 335, "veg", ""],
+      ["Chicken seekh kabab", 190, "nonveg", "Half ₹190 · Full ₹372"],
+      ["Peri peri chicken tenders", 348, "nonveg", ""]
+    ] },
+    { "id": "f-tandoori", "name": "Tandoori starters", "items": [
+      ["Tandoori chicken", 347, "nonveg", "Half ₹347 · Full ₹599"],
+      ["Kalmi / tangadi kabab", 276, "nonveg", "Half ₹276 · Full ₹504"],
+      ["Tandoori kabab / chicken tikka", 420, "nonveg", ""],
+      ["Prawns tikka / tandoori prawns", null, "nonveg", "Seasonal – ask for today’s price."],
+      ["Fish tikka / fish hariyali", null, "nonveg", "Seasonal – ask for today’s price."],
+      ["Non-veg platter", 1499, "nonveg", ""]
+    ] },
+    { "id": "f-egg", "name": "Egg starters", "items": [
+      ["Egg bhurji / masala omelette", 155, "nonveg", ""],
+      ["Half boiled / boiled egg", 119, "nonveg", ""],
+      ["Kung pao egg", 300, "nonveg", ""],
+      ["Egg chilly / Manchurian / pakoda", 216, "nonveg", ""]
+    ] },
+    { "id": "f-seafood", "name": "Seafood starters", "items": [
+      ["Fish chilly / lemon fish / butter garlic fish", 444, "nonveg", ""],
+      ["Prawns Manchurian / prawns pepper dry", 456, "nonveg", ""],
+      ["Anjal tawa / masala / oil fry", null, "nonveg", "Seasonal – ask for today’s price."],
+      ["Bangada tawa / masala / oil fry", null, "nonveg", "Seasonal – ask for today’s price."]
+    ] },
+    { "id": "f-pasta", "name": "Pasta", "items": [
+      ["Make your own pasta (veg)", 426, "veg", "Spaghetti or penne · arrabbiata, alfredo, pink, aglio e olio or pesto · choose up to 4: mushroom, broccoli, olives, zucchini, paneer, beans, carrot."],
+      ["Make your own pasta (non-veg)", 515, "nonveg", "Spaghetti or penne · arrabbiata, alfredo, pink, aglio e olio or pesto · choose up to 4: mushroom, broccoli, olives, zucchini, paneer, beans, carrot, chicken, prawns."]
+    ] },
+    { "id": "f-pizza", "name": "Pizza", "items": [
+      ["Queen Margherita", 216, "veg", ""],
+      ["Farmhouse", 264, "veg", ""],
+      ["Paneer paprika / mushroom paradise", 300, "veg", ""],
+      ["Chicken makhani / chicken keema / peri peri chicken", 370, "nonveg", ""]
+    ] },
+    { "id": "f-breads", "name": "Breads", "items": [
+      ["Roti", 60, "veg", ""], ["Butter roti", 65, "veg", ""],
+      ["Kulcha", 70, "veg", ""], ["Butter kulcha", 75, "veg", ""],
+      ["Naan", 75, "veg", ""], ["Butter naan", 80, "veg", ""],
+      ["Tandoori / lachha paratha", 80, "veg", ""]
+    ] },
+    { "id": "f-veg-mains", "name": "Veg main course", "items": [
+      ["Kadai mushroom", 300, "veg", ""],
+      ["Paneer butter masala / palak paneer", 300, "veg", ""],
+      ["Dal fry / tadka", 263, "veg", ""],
+      ["Mix veg curry", 312, "veg", ""]
+    ] },
+    { "id": "f-nonveg-mains", "name": "Non-veg main course", "items": [
+      ["Chicken tikka masala / chicken butter masala", 359, "nonveg", ""],
+      ["Punjabi chicken / Mayuri special chicken gravy", 384, "nonveg", ""],
+      ["Fish masala / prawns masala", null, "nonveg", "Seasonal – ask for today’s price."],
+      ["Egg masala / keema masala", 262, "nonveg", ""],
+      ["Kadai mutton", 420, "nonveg", ""],
+      ["Mutton rogan josh", 432, "nonveg", ""],
+      ["Mayuri special mutton gravy", 455, "nonveg", ""]
+    ] },
+    { "id": "f-rice", "name": "Rice, noodles & biryanis", "items": [
+      ["Veg fried rice / Schezwan / noodles", 276, "veg", ""],
+      ["Egg fried rice / Schezwan / noodles", 288, "nonveg", ""],
+      ["Chicken fried rice / Schezwan / noodles", 312, "nonveg", ""],
+      ["Prawns fried rice / Schezwan / noodles", 336, "nonveg", ""],
+      ["Mixed fried rice / Schezwan / noodles", 384, "nonveg", ""],
+      ["Jeera rice / ghee rice", 250, "veg", ""],
+      ["Dal khichdi / palak khichdi", 250, "veg", ""],
+      ["Curd rice / veg pulao", 239, "veg", ""],
+      ["Veg Hyderabadi / paneer / mushroom biryani", 312, "veg", ""],
+      ["Andhra chicken biryani", 372, "nonveg", ""],
+      ["Andhra mutton biryani", 479, "nonveg", ""],
+      ["Hyderabadi chicken biryani", 372, "nonveg", ""],
+      ["Hyderabadi mutton biryani", 479, "nonveg", ""],
+      ["Fish biryani", 419, "nonveg", ""],
+      ["Prawns biryani", 443, "nonveg", ""],
+      ["Egg biryani", 276, "nonveg", ""]
+    ] },
+    { "id": "f-desserts", "name": "Desserts", "items": [
+      ["Gulab jamun / gajar ka halwa", 180, "veg", ""],
+      ["Fruit salad ice cream", 192, "veg", "A variety of fruits topped with jelly sauce."],
+      ["Grasshopper ice cream", 264, "veg", "Vanilla and pista ice cream with nuts and pista sauce."],
+      ["Chocolate fudge ice cream", 252, "veg", "Vanilla ice cream with chocolate sauce and nuts."],
+      ["Scotsman ice cream", 252, "veg", "Vanilla and butterscotch ice cream with cashews and butterscotch sauce."],
+      ["Triple sundae ice cream", 276, "veg", "Butterscotch, strawberry and chocolate, each with its own sauce."],
+      ["Mango Walts", 276, "veg", "Mango and vanilla ice cream with mango sauce."],
+      ["Gudbud ice cream", 276, "veg", "Fresh fruits with three flavours of ice cream, mint sauce and dry fruits."],
+      ["Banana split", 276, "veg", "Chocolate, strawberry and vanilla ice cream with sauces and fruits."],
+      ["Dry fruits with vanilla ice cream", 252, "veg", ""],
+      ["Nasha's special ice cream", 312, "veg", ""]
+    ] }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "groups": [
+    {"id": "hh-draught-beer", "name": "Draught beer", "note": "", "photo": "assets/nasha-beer.jpg", "items": [["Woodpecker / KF Premium mug", 299], ["Woodpecker / KF Premium pitcher", 1449], ["Woodpecker / KF Premium tower", 2649], ["Bud Premium / KF Ultra mug", 399], ["Bud Premium / KF Ultra pitcher", 1949], ["Bud Premium / KF Ultra tower", 3649], ["Bud Magnum / KF Ultra Max mug", 429], ["Bud Magnum / KF Ultra Max pitcher", 2069], ["Bud Magnum / KF Ultra Max tower", 3899]]},
+    {"id": "hh-cocktails", "name": "Cocktails", "note": "", "photo": "assets/nasha-cocktail.jpg", "items": [["Cosmopolitan", 729], ["Pina colada", 699], ["Sex on the beach", 699], ["Margarita", 749], ["Screwdriver", 699]]},
+    {"id": "hh-whisky", "name": "Whisky", "note": "", "photo": "assets/nasha-whisky.jpg", "items": [["Oaksmith", 199], ["Blenders Pride", 249], ["Black & White", 349], ["100 Pipers", 349], ["Teacher’s Highland Cream", 349], ["Black Dog 8 years", 349]]},
+    {"id": "hh-vodka", "name": "Vodka", "note": "", "photo": "assets/drink-vodka.jpg", "items": [["Romanov", 119], ["Smirnoff", 249], ["Magic Moments", 159]]},
+    {"id": "hh-rum", "name": "Rum", "note": "", "photo": "assets/drink-rum.jpg", "items": [["Old Monk", 99]]},
+    {"id": "hh-brandy", "name": "Brandy", "note": "", "photo": "assets/drink-brandy.jpg", "items": [["Mansion House", 129], ["Morpheus XO", 229], ["Napoleon", 199]]},
+    {"id": "hh-tequila", "name": "Tequila shots", "note": "", "photo": "assets/drink-tequila.jpg", "items": [["Premium Gold", 339], ["Ware House", 339]]},
+    {"id": "hh-gin", "name": "Gin", "note": "", "photo": "assets/drink-gin.jpg", "items": [["Blue Riband", 129], ["Bombay Sapphire", 509]]},
+    {"id": "hh-fire-shooters", "name": "Fire shooters", "note": "", "photo": "assets/nasha-shots.jpg", "items": [["B-52", 1089], ["Kamikaze", 579], ["Fireball", 399]]},
+    {"id": "hh-beer-bucket", "name": "Beer bucket", "note": "5 pints + 1 starter", "photo": "assets/drink-beer-bucket.jpg", "items": [["KF Premium", 1139], ["KF Strong", 1039], ["Bud Premium", 1419], ["Bud Magnum", 1539], ["Corona", 1889]]},
+    {"id": "hh-mocktails", "name": "Mocktails", "note": "", "photo": "assets/drink-mocktail.jpg", "items": [["Virgin mojito", 399], ["Coconut pie", 399], ["Lemon iced tea", 399], ["Oh My Guava", 449], ["Nasha The Coolest", 579]]}
+  ],
+  "combos": [
+    {"id": "hh-maja-maadi", "name": "Maja Maadi Combo", "price": 999, "photo": "assets/nasha-0162.jpg", "includes": ["Woodpecker / KF Premium pitcher", "Green salad", "Masala papad", "Veg starter", "Veg fried rice"]},
+    {"id": "hh-piyo-aur-khao", "name": "Piyo Aur Khao Combo", "price": 1499, "photo": "assets/nasha-0127.jpg", "includes": ["Woodpecker / KF Premium tower", "Green salad", "Peanut masala", "Non-veg starter", "Chicken biryani"]}
+  ]
+}

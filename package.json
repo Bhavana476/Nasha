@@ -1,0 +1,22 @@
+{
+  "name": "nasha-resto-bar",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Nasha Resto Bar website and admin panel for BTM 2nd Stage, Bengaluru",
+  "scripts": {
+    "start": "node serve.mjs",
+    "build": "python build.py",
+    "check": "node --check script.js && node --check site.js && node --check admin/admin.js && node --check serve.mjs && node --check server/api.mjs && python check-site.py",
+    "test": "playwright test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "qrcode-generator": "^1.4.4"
+  },
+  "dependencies": {
+    "mongodb": "^6.21.0"
+  }
+}

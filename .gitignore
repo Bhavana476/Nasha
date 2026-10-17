@@ -1,0 +1,10 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+__pycache__/
+*.log
+# Live database, uploads and the first-login note: customer data and secrets, never commit.
+data/
+# Points at this computer's data folder.
+nasha.config.json

@@ -1,0 +1,16 @@
+{
+  "name": "Nasha Resto Bar",
+  "phone": "+918050601533",
+  "phoneDisplay": "+91 80506 01533",
+  "address": "5, 100 Feet Ring Road, BTM 2nd Stage, BTM Layout, Bengaluru, Karnataka 560076",
+  "hours": "Every day · 12 noon – 1 am",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Nasha+the+Resto+Bar+5+100+Feet+Ring+Road+BTM+Bengaluru",
+  "bookingUrl": "https://www.district.in/dining/bangalore/nasha-the-resto-bar-btm-bangalore",
+  "menuUrl": "https://www.zomato.com/bangalore/nasha-the-resto-bar-btm-bangalore/menu",
+  "sources": {
+    "contact": "https://www.district.in/dining/bangalore/nasha-the-resto-bar-btm-bangalore",
+    "hours": "https://www.nashatherestrobar.in/contact-us",
+    "menu": "https://www.nashatherestrobar.in/menu",
+    "checked": "2026-09-29"
+  }
+}
