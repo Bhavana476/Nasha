@@ -918,7 +918,7 @@ const SECTIONS = {
   info: ['settings', body => ({ name: text(body.name, 80, 'Restaurant name', true), logo: imageOf(body.logo), gst: text(body.gst, 20, 'GST number').toUpperCase(), address: text(body.address, 300, 'Address', true), phone: phoneOf(body.phone), phoneDisplay: text(body.phoneDisplay, 30, 'Phone as shown') || phoneOf(body.phone), email: emailOf(body.email), whatsapp: phoneOf(body.whatsapp, false), mapsUrl: urlOf(body.mapsUrl, 'Google Maps link'), siteUrl: urlOf(body.siteUrl, 'Website address').replace(/\/+$/, '') })],
   branches: ['settings', (body, current) => current.map((branch, index) => {
     const entry = (Array.isArray(body.branches) ? body.branches : [])[index] || branch;
-    return { id: branch.id, name: text(entry.name, 40, 'Branch name', true), address: text(entry.address, 300, 'Branch address', true), phone: phoneOf(entry.phone), phoneDisplay: text(entry.phoneDisplay, 30, 'Phone as shown') || phoneOf(entry.phone), whatsapp: phoneOf(entry.whatsapp, false), mapsUrl: urlOf(entry.mapsUrl, 'Google Maps link'), instagram: urlOf(entry.instagram, 'Instagram link') };
+    return { id: branch.id, name: text(entry.name, 40, 'Branch name', true), address: text(entry.address, 300, 'Branch address', true), phone: phoneOf(entry.phone), phoneDisplay: text(entry.phoneDisplay, 30, 'Phone as shown') || phoneOf(entry.phone), whatsapp: phoneOf(entry.whatsapp, false), mapsUrl: urlOf(entry.mapsUrl, 'Google Maps link'), instagram: urlOf(entry.instagram, 'Instagram link'), heroImage: imageOf(entry.heroImage) };
   })],
   hours: ['settings', body => {
     if (!Array.isArray(body.hours) || body.hours.length !== 7) bad('Opening hours are incomplete.');

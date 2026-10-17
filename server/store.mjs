@@ -359,6 +359,19 @@ if (db.meta.version < 18) {
   db.meta.version = 18;
 }
 
+// Version 19 added Attibele's own banner photo and three more gallery photos of that branch.
+if (db.meta.version < 19) {
+  const attibele = db.settings.branches.find(branch => branch.id === 'attibele');
+  if (attibele && !attibele.heroImage) attibele.heroImage = 'assets/nasha-attibele-banner.jpg';
+  const added = [
+    { id: 'nasha-attibele-bar', image: 'assets/nasha-attibele-bar.jpg', caption: 'The Attibele bar', category: 'drinks', alt: 'The bar counter at Nasha Attibele, lined with glasses and bottles' },
+    { id: 'nasha-attibele-entrance', image: 'assets/nasha-attibele-entrance.jpg', caption: 'Nasha Garden', category: 'spaces', alt: 'The entrance to Nasha The Resto Bar at Attibele, beside a garden sign' },
+    { id: 'nasha-attibele-garden', image: 'assets/nasha-attibele-garden.jpg', caption: 'The garden', category: 'spaces', alt: 'Garden seating among palms and murals at Nasha Attibele' },
+  ];
+  for (const photo of added) if (!db.gallery.some(entry => entry.id === photo.id)) db.gallery.push({ ...photo, order: db.gallery.length });
+  db.meta.version = 19;
+}
+
 // Items that shared a photo with another item get their own (server/unique-photos.json). This runs on
 // every start, but only replaces a stock photo from assets/, never one the owner uploaded.
 {

@@ -408,6 +408,9 @@
     const branch = site.branches.find(entry => entry.id === store.get('nasha-branch', '')) || site.branches[0];
     branchId = branch.id;
     const whatsapp = branch.whatsapp || info.whatsapp, maps = branch.mapsUrl || info.mapsUrl, instagram = branch.instagram || site.social.instagram;
+    // A branch with its own banner photo shows it instead of the site's main one.
+    const heroImage = branch.heroImage || content.hero.image;
+    if (heroImage) $$('[data-live="hero-image"]').forEach(image => { image.src = heroImage; image.alt = ''; });
     $$('[data-branch]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.branch === branch.id)));
     $$('[data-live="branch-name"]').forEach(node => { node.textContent = branch.name; });
     $$('[data-live="branch-label"]').forEach(node => { node.textContent = branch.name.toUpperCase(); });
