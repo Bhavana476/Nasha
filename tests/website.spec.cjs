@@ -77,9 +77,9 @@ test('menu categories are collapsed until opened, and a search or filter opens a
   await live(page);
   await page.locator('#menu-search').fill('crispy paneer');
   await expect(page.getByRole('button', { name: 'Unsave Crispy paneer burger', exact: true })).toHaveAttribute('aria-pressed', 'true');
-  await page.locator('#clear-filters').click();
-  await page.locator('[data-menu-filter="saved"]').click();
-  await expect(page.locator('[data-menu-item]:visible')).toHaveCount(1);
+  // No category pills any more; saved dishes are listed in the wish list panel instead.
+  await expect(page.locator('#shortlist')).toBeVisible();
+  await expect(page.locator('#shortlist-summary')).toContainText('Crispy paneer burger');
   await page.locator('#clear-filters').click();
   await page.locator('#diet-filter').selectOption('veg');
   await expect(page.locator('[data-menu-item]:visible')).toHaveCount(await page.locator('[data-menu-item][data-diet="veg"]').count());
@@ -90,9 +90,9 @@ test('menu categories are collapsed until opened, and a search or filter opens a
   await expect(page.locator('[data-menu-item]:visible')).toHaveCount(0);
   await page.locator('#clear-saved').click();
   await expect(page.locator('#shortlist')).toBeHidden();
-  await page.locator('[data-menu-filter="f-soup"]').click();
+  await soup.locator('summary').click();
   await expect(page.locator('[data-menu-item]:visible')).toHaveCount(3);
-  await page.locator('#clear-filters').click();
+  await soup.locator('summary').click();
   await page.locator('#diet-filter').selectOption('alcoholic');
   await expect(page.locator('[data-menu-item]:visible')).toHaveCount(await page.locator('[data-menu-item][data-diet="alcoholic"]').count());
 });
@@ -103,7 +103,7 @@ test('menu gracefully handles invalid saved browser data', async ({ page }) => {
   await live(page);
   await expect(page.locator('.dish-group')).not.toHaveCount(0);
   await expect(page.locator('[data-menu-item]:visible')).toHaveCount(0);
-  await expect(page.locator('[data-menu-filter="saved"]')).toHaveText('Saved (0)');
+  await expect(page.locator('#shortlist')).toBeHidden();
 });
 
 test('gallery filters, keyboard controls and focus restoration work', async ({ page }) => {
@@ -532,7 +532,6 @@ test('the happy hours menu is kept in the admin menu and drawn from it on the we
   // The happy hours list is not mixed into the regular menu browser, and cannot be ordered online.
   await page.goto('/menu.html');
   await live(page);
-  await expect(page.locator('[data-menu-filter="hh-draught-beer"]')).toHaveCount(0);
   await expect(page.locator('.dish-card[data-category^="hh-"]')).toHaveCount(0);
   await call('PUT', 'settings/ordering', { enabled: true, delivery: false, deliveryFee: 0, minOrder: 0 });
   const order = await request.post('/api/public/orders', { data: { items: [{ id: 'hh-mocktails-1', qty: 1 }], type: 'pickup', payment: 'cod', name: 'Mock Tail', phone: '9000000009' } });
