@@ -217,6 +217,15 @@
 
   // ---- Menu -------------------------------------------------------------------------------------------
   const DIETS = { veg: 'Vegetarian', nonveg: 'Non-vegetarian', alcoholic: 'Contains alcohol', ask: 'Ask the team' };
+  // The standard veg (square + dot) and non-veg (square + triangle) marks, told apart by shape rather than
+  // colour so they still read correctly on a black, white and gray page. currentColor picks up the row's text colour.
+  const DIET_ICONS = {
+    veg: '<svg class="diet-dot" viewBox="0 0 10 10" aria-hidden="true"><rect x=".75" y=".75" width="8.5" height="8.5" rx="1.2" fill="none" stroke="currentColor"/><circle cx="5" cy="5" r="2.1" fill="currentColor"/></svg>',
+    nonveg: '<svg class="diet-dot" viewBox="0 0 10 10" aria-hidden="true"><rect x=".75" y=".75" width="8.5" height="8.5" rx="1.2" fill="none" stroke="currentColor"/><path d="M5 2.3 7.4 7H2.6Z" fill="currentColor"/></svg>',
+    alcoholic: '<svg class="diet-dot" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3.4" fill="none" stroke="currentColor"/></svg>',
+    ask: '<svg class="diet-dot" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3.4" fill="none" stroke="currentColor" stroke-dasharray="1.6 1.6"/></svg>',
+  };
+  const dietIcon = diet => `<span class="diet-icon" title="${esc(DIETS[diet] || '')}">${DIET_ICONS[diet] || ''}</span>`;
   // The happy hours list, as kept in the admin menu. The built-in copy stays if there is nothing to show.
   const HAPPY_FOCUS = { 'assets/drink-rum.jpg': '50% 30%', 'assets/nasha-beer.jpg': '50% 68%' }; // Same as build.py.
   const happyPhoto = photo => photo ? `<img class="happy-photo" src="${esc(photo)}" alt="" loading="lazy" width="900" height="600"${HAPPY_FOCUS[photo] ? ` style="object-position:${HAPPY_FOCUS[photo]}"` : ''}>` : '';
@@ -255,7 +264,11 @@
     const names = Object.fromEntries(regularMenu(site).map(category => [category.id, category.name]));
     const used = regularMenu(site).filter(category => site.items.some(item => item.categoryId === category.id));
     $('[data-live="menu-categories"]').innerHTML = [['all', 'All'], ...used.map(category => [category.id, category.name]), ['saved', 'Saved']].map(([id, label]) => `<button data-menu-filter="${esc(id)}" aria-pressed="false">${esc(label)}</button>`).join('');
-    $('.dish-grid', browser).innerHTML = site.items.filter(item => names[item.categoryId]).map(item => `<article class="dish-card${item.available ? '' : ' sold-out'}" data-menu-item data-id="${esc(item.id)}" data-category="${esc(item.categoryId)}" data-diet="${esc(item.diet)}" data-name="${esc(item.name)}">${item.photo ? `<div class="dish-media"><img src="${esc(item.photo)}" alt="" loading="lazy" width="1600" height="1000"></div>` : '<div class="dish-media empty" aria-hidden="true"><span>n</span></div>'}<div class="dish-top"><span class="diet ${esc(item.diet)}">${DIETS[item.diet]}</span><button class="save-dish" data-save="${esc(item.id)}" aria-pressed="false" aria-label="Save ${esc(item.name)}">＋</button></div><p class="dish-category">${esc(names[item.categoryId])}</p><h2>${esc(item.name)}</h2>${item.badges.length ? `<p class="badges">${item.badges.map(badge => `<span>${esc(badge)}</span>`).join('')}</p>` : ''}<p>${esc(item.description)}</p><span class="dish-price">${!item.available ? 'Currently unavailable' : item.price === null ? 'Ask for current price' : `<b>${rupees(item.price)}</b>`}</span>${orderable(site, item) ? `<button class="plain-button add-to-order" data-add="${esc(item.id)}">Add to order ＋</button>` : ''}</article>`).join('');
+    // Each category is its own card; inside it, every dish is one line: name, a dotted leader, then the price.
+    // No photos here (removed by request) — the diet mark (square = veg/non-veg, circle = alcoholic) tells dishes apart instead.
+    const row = item => `<li class="dish-card${item.available ? '' : ' sold-out'}" data-menu-item data-id="${esc(item.id)}" data-category="${esc(item.categoryId)}" data-diet="${esc(item.diet)}" data-name="${esc(item.name)}"${item.description ? ` title="${esc(item.description)}"` : ''}><span class="dish-category" hidden>${esc(names[item.categoryId])}</span>${dietIcon(item.diet)}<span class="dish-name">${esc(item.name)}${item.badges.length ? item.badges.map(badge => `<b class="dish-badge">${esc(badge)}</b>`).join('') : ''}</span><i aria-hidden="true"></i><span class="dish-price">${!item.available ? 'Currently unavailable' : item.price === null ? 'Ask' : rupees(item.price)}</span><span class="dish-row-actions"><button class="save-dish" data-save="${esc(item.id)}" aria-pressed="false" aria-label="Save ${esc(item.name)}">＋</button>${orderable(site, item) ? `<button class="plain-button add-to-order" data-add="${esc(item.id)}" aria-label="Add ${esc(item.name)} to order">Add ＋</button>` : ''}</span></li>`;
+    const groups = used.map(category => ({ category, items: site.items.filter(item => item.categoryId === category.id) })).filter(group => group.items.length);
+    $('.dish-grid', browser).innerHTML = groups.map(group => `<article class="dish-group"><h3>${esc(group.category.name)}</h3><ul>${group.items.map(row).join('')}</ul></article>`).join('');
     // Once the owner has priced the menu it is their own, so the "based on public listings" notes no longer apply.
     if (site.items.some(item => item.price !== null)) $$('[data-static-only]', browser).forEach(note => { note.hidden = true; });
     initMenu();

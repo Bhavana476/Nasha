@@ -121,6 +121,11 @@ function initMenu() {
       button.setAttribute('aria-label', `${selected ? 'Unsave' : 'Save'} ${card.dataset.name}`);
       button.textContent = selected ? '✓' : '＋';
     });
+    // Dishes are grouped into one card per category; once every dish in a card is filtered out, hide the
+    // card too, so filtering never leaves an empty category heading on screen.
+    menuBrowser.querySelectorAll('.dish-group').forEach(group => {
+      group.hidden = ![...group.querySelectorAll('[data-menu-item]')].some(card => !card.hidden);
+    });
     filters.forEach(button => {
       const active = button.dataset.menuFilter === category;
       button.classList.toggle('active', active);

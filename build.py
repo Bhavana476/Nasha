@@ -146,16 +146,29 @@ page('index.html', 'Good times. Great taste.', 'Nasha Resto Bar in BTM 2nd Stage
 categories = {category['id']: category for category in SEED['categories']}
 used = [category for category in SEED['categories'] if any(item['categoryId'] == category['id'] for item in SEED['items'])]
 DIETS = {'veg': 'Vegetarian', 'nonveg': 'Non-vegetarian', 'alcoholic': 'Contains alcohol', 'ask': 'Ask the team'}
-# Items without a photo get a patterned panel so the grid stays even.
-def media(item):
-    if item['photo']:
-        return f'<div class="dish-media"><img src="{item["photo"]}" alt="" loading="lazy" width="1600" height="1000"></div>'
-    return '<div class="dish-media empty" aria-hidden="true"><span>n</span></div>'
+# The veg (square + dot) and non-veg (square + triangle) marks are told apart by shape, not colour, so
+# they still read on a black/white/gray page; site.js draws the same icons once the live menu loads.
+DIET_ICONS = {
+    'veg': '<svg class="diet-dot" viewBox="0 0 10 10" aria-hidden="true"><rect x=".75" y=".75" width="8.5" height="8.5" rx="1.2" fill="none" stroke="currentColor"/><circle cx="5" cy="5" r="2.1" fill="currentColor"/></svg>',
+    'nonveg': '<svg class="diet-dot" viewBox="0 0 10 10" aria-hidden="true"><rect x=".75" y=".75" width="8.5" height="8.5" rx="1.2" fill="none" stroke="currentColor"/><path d="M5 2.3 7.4 7H2.6Z" fill="currentColor"/></svg>',
+    'alcoholic': '<svg class="diet-dot" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3.4" fill="none" stroke="currentColor"/></svg>',
+    'ask': '<svg class="diet-dot" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3.4" fill="none" stroke="currentColor" stroke-dasharray="1.6 1.6"/></svg>',
+}
+def diet_icon(diet):
+    return f'<span class="diet-icon" title="{E(DIETS.get(diet, ""))}">{DIET_ICONS.get(diet, "")}</span>'
+
+# No photos: each category is a card, and every dish in it is one line — name, a dotted leader, then the price.
+def row(item):
+    key, name, diet = item['id'], item['name'], item['diet']
+    hint = f''' title="{E(item['description'])}"''' if item['description'] else ''
+    return f'''<li class="dish-card" data-menu-item data-id="{key}" data-category="{item['categoryId']}" data-diet="{diet}" data-name="{E(name)}"{hint}><span class="dish-category" hidden>{categories[item['categoryId']]['name']}</span>{diet_icon(diet)}<span class="dish-name">{E(name)}</span><i aria-hidden="true"></i><span class="dish-price">Ask</span><span class="dish-row-actions"><button class="save-dish" data-save="{key}" aria-pressed="false" aria-label="Save {E(name)}">＋</button></span></li>'''
 
 cards = ''
-for item in SEED['items']:
-    key, name, diet, category = item['id'], item['name'], item['diet'], categories[item['categoryId']]['name']
-    cards += f'''<article class="dish-card" data-menu-item data-id="{key}" data-category="{item['categoryId']}" data-diet="{diet}" data-name="{E(name)}">{media(item)}<div class="dish-top"><span class="diet {diet}">{DIETS[diet]}</span><button class="save-dish" data-save="{key}" aria-pressed="false" aria-label="Save {E(name)}">＋</button></div><p class="dish-category">{category}</p><h2>{E(name)}</h2><p>{E(item['description'])}</p><span class="dish-price">Ask for current price</span></article>'''
+for category in used:
+    items = [item for item in SEED['items'] if item['categoryId'] == category['id']]
+    if not items:
+        continue
+    cards += f'''<article class="dish-group"><h3>{category['name']}</h3><ul>{''.join(row(item) for item in items)}</ul></article>'''
 filters = [('all', 'All')] + [(category['id'], category['name']) for category in used] + [('saved', 'Saved')]
 menu = intro('THE MENU / SOMETHING FOR EVERY MOOD', 'BIG FLAVOURS.<br><em>GOOD CHOICES.</em>', 'From tandoor favourites to a round at the bar. Find something for your table, or jump to the <a class="inline-link" href="#happy-hours">happy hours menu</a>.', 'nasha-0162')
 menu += f'''<section class="section menu-browser" data-menu-browser><p class="table-chip" id="table-chip" hidden></p><div class="notice" data-static-only><span aria-hidden="true">↗</span><p>These highlights are based on Nasha’s published menu and dining listings. For the complete selection, current prices, and availability, {external(DATA['menuUrl'],'view the latest menu','inline-link')}.</p></div><div class="menu-toolbar"><label class="search-field"><span>Search food & drinks</span><input id="menu-search" type="search" placeholder="Try paneer, chicken, cocktails…" autocomplete="off"></label><label class="diet-filter"><span>Preference</span><select id="diet-filter"><option value="all">All preferences</option><option value="veg">Vegetarian</option><option value="nonveg">Non-vegetarian</option><option value="alcoholic">Contains alcohol</option></select></label></div><div class="menu-controls" role="group" aria-label="Menu category" data-live="menu-categories">{''.join(f'<button data-menu-filter="{key}" aria-pressed="{str(i == 0).lower()}" class="{"active" if i == 0 else ""}">{label}</button>' for i,(key,label) in enumerate(filters))}</div><div class="results-bar"><p id="result-count" role="status" aria-live="polite">{len(SEED['items'])} items</p><button class="plain-button" id="clear-filters" hidden>Reset filters ↺</button></div><div class="dish-grid">{cards}</div><div id="menu-empty" class="empty-state" hidden><h2>NOTHING ON THIS TABLE. YET.</h2><p>Try another search or category. Use the + on a dish to save it here.</p><button class="button cream" id="empty-reset">Show the whole menu ↗</button></div><div class="shortlist" id="shortlist" hidden><div><h3>YOUR TABLE’S WISH LIST</h3><p id="shortlist-summary"></p></div><div class="shortlist-actions"><button class="button cream" id="copy-shortlist">Copy your list ↗</button><button class="plain-button" id="clear-saved">Clear saved items</button></div></div><div class="order-links" data-live="order-links"></div><p class="menu-note">Dietary labels describe the named dish, not preparation or allergen safety. Tell the team about allergies before ordering. Saving a dish creates a list on this device; it does not place an order.</p><p class="source-note" data-static-only>Menu references: <a href="{DATA['sources']['menu']}" target="_blank" rel="noopener noreferrer">Nasha’s published menu ↗</a> · <a href="{BOOK}" target="_blank" rel="noopener noreferrer">Dining listing ↗</a></p><noscript><p class="notice">All menu highlights are shown. Enable JavaScript to search, filter, and save dishes.</p></noscript></section><a class="cart-bar" id="cart-bar" href="order.html" hidden></a>'''
