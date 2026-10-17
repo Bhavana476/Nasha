@@ -121,10 +121,15 @@ function initMenu() {
       button.setAttribute('aria-label', `${selected ? 'Unsave' : 'Save'} ${card.dataset.name}`);
       button.textContent = selected ? '✓' : '＋';
     });
-    // Dishes are grouped into one card per category; once every dish in a card is filtered out, hide the
-    // card too, so filtering never leaves an empty category heading on screen.
+    // Dishes are grouped into one collapsed card per category. Once every dish in a card is filtered out,
+    // hide the card too, so filtering never leaves an empty category heading on screen. While a search or
+    // filter is active, a card with a match opens on its own; browsing with no filter leaves cards as the
+    // guest left them, so opening "Soup" does not also force every other card open.
+    const filtering = category !== 'all' || preference.value !== 'all' || query !== '';
     menuBrowser.querySelectorAll('.dish-group').forEach(group => {
-      group.hidden = ![...group.querySelectorAll('[data-menu-item]')].some(card => !card.hidden);
+      const hasVisible = [...group.querySelectorAll('[data-menu-item]')].some(card => !card.hidden);
+      group.hidden = !hasVisible;
+      group.open = filtering && hasVisible;
     });
     filters.forEach(button => {
       const active = button.dataset.menuFilter === category;

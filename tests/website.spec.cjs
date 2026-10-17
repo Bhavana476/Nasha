@@ -55,18 +55,29 @@ test('age question blocks the site until answered and is remembered', async ({ p
   await expect(page.locator('dialog.age-gate')).toHaveCount(0);
 });
 
-test('menu search, filters, saved items and empty-state recovery work', async ({ page }) => {
+test('menu categories are collapsed until opened, and a search or filter opens a match on its own', async ({ page }) => {
   await page.goto('/menu.html');
   await live(page);
   const total = await page.locator('[data-menu-item]').count();
   expect(total).toBeGreaterThan(90);
-  await expect(page.locator('[data-menu-item]:visible')).toHaveCount(total);
+  // Collapsed by default: the category cards are there, but no dish is visible until one is opened.
+  await expect(page.locator('.dish-group')).not.toHaveCount(0);
+  await expect(page.locator('[data-menu-item]:visible')).toHaveCount(0);
+  const soup = page.locator('.dish-group').filter({ has: page.locator('h3', { hasText: /^Soup$/ }) });
+  await soup.locator('summary').click();
+  await expect(soup).toHaveJSProperty('open', true);
+  await expect(soup.locator('[data-menu-item]:visible')).toHaveCount(3);
+  await soup.locator('summary').click();
+  await expect(page.locator('[data-menu-item]:visible')).toHaveCount(0);
+  // Searching opens whichever card has a match, with no click needed.
   await page.locator('#menu-search').fill('crispy paneer');
   await expect(page.locator('[data-menu-item]:visible')).toHaveCount(1);
   await page.getByRole('button', { name: 'Save Crispy paneer burger', exact: true }).click();
   await page.reload();
   await live(page);
+  await page.locator('#menu-search').fill('crispy paneer');
   await expect(page.getByRole('button', { name: 'Unsave Crispy paneer burger', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.locator('#clear-filters').click();
   await page.locator('[data-menu-filter="saved"]').click();
   await expect(page.locator('[data-menu-item]:visible')).toHaveCount(1);
   await page.locator('#clear-filters').click();
@@ -75,7 +86,8 @@ test('menu search, filters, saved items and empty-state recovery work', async ({
   await page.locator('#menu-search').fill('no-such-dish');
   await expect(page.locator('#menu-empty')).toBeVisible();
   await page.locator('#empty-reset').click();
-  await expect(page.locator('[data-menu-item]:visible')).toHaveCount(total);
+  // Clearing the search returns to the collapsed browse view, not an all-open one.
+  await expect(page.locator('[data-menu-item]:visible')).toHaveCount(0);
   await page.locator('#clear-saved').click();
   await expect(page.locator('#shortlist')).toBeHidden();
   await page.locator('[data-menu-filter="f-soup"]').click();
@@ -89,7 +101,8 @@ test('menu gracefully handles invalid saved browser data', async ({ page }) => {
   await page.evaluate(() => localStorage.setItem('nasha-saved-dishes-v1', '{invalid'));
   await page.reload();
   await live(page);
-  await expect(page.locator('[data-menu-item]:visible')).toHaveCount(await page.locator('[data-menu-item]').count());
+  await expect(page.locator('.dish-group')).not.toHaveCount(0);
+  await expect(page.locator('[data-menu-item]:visible')).toHaveCount(0);
   await expect(page.locator('[data-menu-filter="saved"]')).toHaveText('Saved (0)');
 });
 
@@ -248,6 +261,7 @@ test('online ordering: basket, coupon and order placed', async ({ page, request 
 
   await page.goto('/menu.html');
   await expect(page.locator('[data-id="b-red-wine-1"] [data-add]')).toHaveCount(0);
+  await page.locator('#menu-search').fill('Veg patty burger');
   await page.locator('[data-id="f-burgers-1"] [data-add]').click();
   await page.locator('[data-id="f-burgers-1"] [data-add]').click();
   await expect(page.locator('#cart-bar')).toContainText('2 items · ₹900');
