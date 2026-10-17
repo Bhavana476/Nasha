@@ -1,0 +1,19 @@
+{
+  "groups": [
+    {"id": "ahh-draught-beer", "name": "Draught beer", "note": "", "photo": "assets/nasha-beer.jpg", "items": [["Woodpecker / KF Premium mug", 299], ["Woodpecker / KF Premium pitcher", 1599], ["Woodpecker / KF Premium tower", 2999], ["Bud Premium / KF Ultra mug", 359], ["Bud Premium / KF Ultra pitcher", 1799], ["Bud Premium / KF Ultra tower", 3199], ["Bud Magnum / KF Ultra Max mug", 399], ["Bud Magnum / KF Ultra Max pitcher", 1999], ["Bud Magnum / KF Ultra Max tower", 3699]]},
+    {"id": "ahh-cocktails", "name": "Cocktails", "note": "", "photo": "assets/nasha-cocktail.jpg", "items": [["007 - Shaken", 549], ["Chocotini", 549], ["Basil Smash", 599], ["Litt", 799]]},
+    {"id": "ahh-whisky", "name": "Whisky", "note": "", "photo": "assets/nasha-whisky.jpg", "items": [["D.S.P Black", 139], ["Royal Stag", 189], ["Oaksmith", 189], ["Blenders Pride", 219], ["Signature", 219], ["Antiquity Blue", 229], ["B & W / Dewars / 100 Pipers", 389]]},
+    {"id": "ahh-vodka", "name": "Vodka", "note": "", "photo": "assets/drink-vodka.jpg", "items": [["Romanov", 149], ["Smirnoff / Flavoured", 219], ["Magic Moments / Flavoured", 189], ["Ketel One", 449]]},
+    {"id": "ahh-rum", "name": "Rum", "note": "", "photo": "assets/drink-rum.jpg", "items": [["Old Monk", 139], ["Hercules Dark / White", 189]]},
+    {"id": "ahh-brandy", "name": "Brandy", "note": "", "photo": "assets/drink-brandy.jpg", "items": [["Mansion House", 149], ["Morpheus XO", 209], ["Morpheus Blue", 379], ["Napoleon", 189]]},
+    {"id": "ahh-tequila", "name": "Tequila shots", "note": "", "photo": "assets/drink-tequila.jpg", "items": [["Jose Cuervo Blue", 599], ["Camino Silver / Gold", 489]]},
+    {"id": "ahh-gin", "name": "Gin", "note": "", "photo": "assets/drink-gin.jpg", "items": [["Blue Riband", 149], ["Bombay Sapphire", 509], ["Beefeater", 469], ["Tanqueray", 489]]},
+    {"id": "ahh-fire-shooters", "name": "Shooters", "note": "", "photo": "assets/nasha-shots.jpg", "items": [["Blue Kamikaze", 499], ["Fire Ball", 369], ["Nasha The Fever", 569]]},
+    {"id": "ahh-beer-bucket", "name": "Beer bucket", "note": "5 pints + 1 starter", "photo": "assets/drink-beer-bucket.jpg", "items": [["KF Premium", 860], ["Bud Premium", 1460], ["Bud Magnum", 1710], ["Hoegaarden", 1520], ["Corona", 1560]]},
+    {"id": "ahh-mocktails", "name": "Mocktails", "note": "", "photo": "assets/drink-mocktail.jpg", "items": [["Virgin Mojito", 299], ["Dest Guava Pie", 349], ["Cool It Alponse", 359], ["Melon Slushy", 359], ["Eastern Lemonade", 359]]}
+  ],
+  "combos": [
+    {"id": "ahh-maja-maadi", "name": "Maja Maadi Combo", "price": 999, "photo": "assets/nasha-0162.jpg", "includes": ["Woodpecker / KF Premium pitcher", "Green salad", "Masala papad", "Veg starter", "Veg fried rice"]},
+    {"id": "ahh-piyo-aur-khao", "name": "Piyo Aur Khao Combo", "price": 1499, "photo": "assets/nasha-0127.jpg", "includes": ["Woodpecker / KF Premium tower", "Green salad", "Peanut masala", "Non-veg starter", "Chicken biryani"]}
+  ]
+}

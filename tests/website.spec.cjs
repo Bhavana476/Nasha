@@ -508,8 +508,8 @@ test('each branch shows its own food & drinks menu', async ({ page }) => {
 test('the happy hours menu is kept in the admin menu and drawn from it on the website', async ({ page, request }) => {
   const call = await signIn(page);
   await page.goto('/admin/#/menu');
-  await expect(page.locator('.cat-head', { hasText: 'Draught beer · 9 items' })).toContainText('Happy hours (1+1 list)');
-  const mug = page.locator('.item-row', { hasText: 'Woodpecker / KF Premium mug' });
+  await expect(page.locator('.cat-head').filter({ hasText: 'Draught beer · 9 items' }).filter({ hasText: 'BTM 2nd Stage' })).toContainText('Happy hours (1+1 list)');
+  const mug = page.locator('.item-row[data-id="hh-draught-beer-1"]');
   await mug.getByRole('button', { name: 'Edit' }).click();
   await page.getByLabel('Price (₹)').fill('289');
   await page.getByRole('button', { name: 'Save', exact: true }).click();
@@ -540,6 +540,20 @@ test('the happy hours menu is kept in the admin menu and drawn from it on the we
   expect((await order.json()).error).toContain('served at the restaurant only');
   await call('PUT', 'settings/ordering', { enabled: false, delivery: false, deliveryFee: 0, minOrder: 0 });
   await call('PUT', 'items/hh-gin-2', { available: true });
+});
+
+test('Attibele has its own happy hours list, separate from BTM’s', async ({ page }) => {
+  await page.goto('/offers.html');
+  await live(page);
+  await expect(page.locator('.happy-group', { hasText: 'Whisky' })).not.toContainText('D.S.P Black');
+  await page.locator('.branch-toggle').getByRole('button', { name: 'Attibele' }).click();
+  const beer = page.locator('.happy-group', { hasText: 'Draught beer' });
+  await expect(beer.locator('li', { hasText: 'Woodpecker / KF Premium mug' })).toContainText('₹299');
+  await expect(beer.locator('li', { hasText: 'Bud Magnum / KF Ultra Max tower' })).toContainText('₹3,699');
+  await expect(page.locator('.happy-group', { hasText: 'Whisky' })).toContainText('D.S.P Black');
+  await expect(page.locator('.happy-combo', { hasText: 'Maja Maadi Combo' })).toContainText('₹999');
+  await page.locator('.branch-toggle').getByRole('button', { name: 'BTM 2nd Stage' }).click();
+  await expect(page.locator('.happy-group', { hasText: 'Whisky' })).not.toContainText('D.S.P Black');
 });
 
 test('guests share a photo memory, it stays private until approved in admin, then shows on the gallery page', async ({ page, request }) => {

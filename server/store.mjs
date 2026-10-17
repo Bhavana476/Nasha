@@ -318,6 +318,23 @@ if (db.meta.version < 16) {
   db.meta.version = 16;
 }
 
+// Version 17 added Attibele's own printed happy hours sheet, the same way version 8 added BTM's: each
+// group becomes a "happy" category and the combos a "combo" category, both marked as Attibele's own.
+if (db.meta.version < 17) {
+  const happy = JSON.parse(readFileSync(path.join(root, 'server', 'attibele-happy-hours.json'), 'utf8'));
+  let categoryOrder = Math.max(-1, ...db.categories.map(category => category.order)) + 1;
+  let itemOrder = Math.max(-1, ...db.items.map(item => item.order)) + 1;
+  const addCategory = category => { if (!db.categories.some(entry => entry.id === category.id)) db.categories.push({ ...category, branch: 'attibele', order: categoryOrder++ }); };
+  const addItem = item => { if (!db.items.some(entry => entry.id === item.id)) db.items.push({ badges: [], available: true, ...item, order: itemOrder++ }); };
+  for (const group of happy.groups) {
+    addCategory({ id: group.id, name: group.name, kind: 'happy', note: group.note, photo: group.photo });
+    group.items.forEach(([name, price], index) => addItem({ id: `${group.id}-${index + 1}`, categoryId: group.id, name, description: '', price, photo: '', diet: group.id === 'ahh-mocktails' ? 'veg' : 'alcoholic' }));
+  }
+  addCategory({ id: 'ahh-combos', name: 'Happy hours combos', kind: 'combo', note: '', photo: '' });
+  for (const combo of happy.combos) addItem({ id: combo.id, categoryId: 'ahh-combos', name: combo.name, description: combo.includes.join(' + '), price: combo.price, photo: combo.photo, diet: 'alcoholic' });
+  db.meta.version = 17;
+}
+
 // Items that shared a photo with another item get their own (server/unique-photos.json). This runs on
 // every start, but only replaces a stock photo from assets/, never one the owner uploaded.
 {
