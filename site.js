@@ -184,7 +184,7 @@
   }
 
   const EVENT_TYPES = { dj: 'DJ NIGHT', live: 'LIVE MUSIC', karaoke: 'KARAOKE', sports: 'SPORTS SCREENING', other: 'SPECIAL EVENT' };
-  const EVENT_PHOTOS = { dj: 'nasha-0021', live: 'nasha-0024', karaoke: 'nasha-0029', sports: 'nasha-0032', other: 'nasha-0015' };
+  const EVENT_PHOTOS = { dj: 'nasha-0021', live: 'nasha-0024', karaoke: 'nasha-0029', sports: 'nasha-match-day', other: 'nasha-0015' };
   function eventCard(event) {
     const meta = [event.entryFee === 0 ? 'Free entry' : event.entryFee ? `Entry ${rupees(event.entryFee)}` : '', event.spotsLeft === null ? '' : event.spotsLeft ? `${event.spotsLeft} places left` : 'Fully booked'].filter(Boolean).join(' · ');
     // Without a poster the card shows a photo of the venue, so the line-up never looks empty.

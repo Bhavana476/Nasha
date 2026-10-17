@@ -335,6 +335,30 @@ if (db.meta.version < 17) {
   db.meta.version = 17;
 }
 
+// Version 18 added fresh photos of the two venues the owner sent (rooftop spread, bar, cocktails, the
+// crowd on a match night), added after the existing gallery photos rather than replacing them.
+if (db.meta.version < 18) {
+  const added = [
+    { id: 'nasha-rooftop-spread', image: 'assets/nasha-rooftop-spread.jpg', caption: 'Rooftop spread', category: 'food', alt: 'A rooftop table set with starters, biryani and a draught beer tower overlooking the road' },
+    { id: 'nasha-floral-cocktail', image: 'assets/nasha-floral-cocktail.jpg', caption: 'Handcrafted and garnished', category: 'drinks', alt: 'A berry-red cocktail garnished with edible flowers and mint, handed across the bar' },
+    { id: 'nasha-bar-mural', image: 'assets/nasha-bar-mural.jpg', caption: 'The bar', category: 'spaces', alt: 'The Nasha bar counter with draught taps and a colourful mural' },
+    { id: 'nasha-mural-booth', image: 'assets/nasha-mural-booth.jpg', caption: 'Seating by the mural', category: 'spaces', alt: 'Booth seating beside a large mural at Nasha' },
+    { id: 'nasha-match-day', image: 'assets/nasha-match-day.jpg', caption: 'Match day', category: 'spaces', alt: 'Guests watching a cricket match on the big screen' },
+    { id: 'nasha-garden-evening', image: 'assets/nasha-garden-evening.jpg', caption: 'Evening in the garden', category: 'spaces', alt: 'Guests dining at Nasha’s garden rooftop in the evening, lit by string lights' },
+    { id: 'nasha-garden-night', image: 'assets/nasha-garden-night.jpg', caption: 'Nights at Nasha', category: 'spaces', alt: 'Guests at Nasha’s garden rooftop at night beneath hanging lights' },
+    { id: 'nasha-mural-tv', image: 'assets/nasha-mural-tv.jpg', caption: 'The main room', category: 'spaces', alt: 'A mural-covered dining nook with a television for live sport' },
+    { id: 'nasha-clay-cocktail', image: 'assets/nasha-clay-cocktail.jpg', caption: 'Served in clay', category: 'drinks', alt: 'A frothy cocktail served in a clay cup with chilli and rose petals' },
+    { id: 'nasha-bartender', image: 'assets/nasha-bartender.jpg', caption: 'From our bar team', category: 'drinks', alt: 'A Nasha bartender presenting a cocktail served in a clay cup' },
+    { id: 'nasha-blue-shots', image: 'assets/nasha-blue-shots.jpg', caption: 'Shots ready', category: 'drinks', alt: 'Two blue shots garnished with orange wedges on the bar' },
+    { id: 'nasha-cocktail-garnish', image: 'assets/nasha-cocktail-garnish.jpg', caption: 'The finishing touch', category: 'drinks', alt: 'A bartender adding a candied citrus garnish to a cocktail with tweezers' },
+    { id: 'nasha-watermelon-cocktail', image: 'assets/nasha-watermelon-cocktail.jpg', caption: 'Fruit-forward and fresh', category: 'drinks', alt: 'A crushed-ice cocktail topped with watermelon cubes and mint' },
+    { id: 'nasha-friends-table', image: 'assets/nasha-friends-table.jpg', caption: 'Good company', category: 'spaces', alt: 'A group of friends seated together at a Nasha table' },
+    { id: 'nasha-cheers', image: 'assets/nasha-cheers.jpg', caption: 'Cheers', category: 'spaces', alt: 'Two guests raising a toast beside the draught beer tap' },
+  ];
+  for (const photo of added) if (!db.gallery.some(entry => entry.id === photo.id)) db.gallery.push({ ...photo, order: db.gallery.length });
+  db.meta.version = 18;
+}
+
 // Items that shared a photo with another item get their own (server/unique-photos.json). This runs on
 // every start, but only replaces a stock photo from assets/, never one the owner uploaded.
 {
